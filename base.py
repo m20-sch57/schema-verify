@@ -30,6 +30,7 @@ def delete():
 
 def main():
     global a
+    f = 0
     while True:
         n = input().split()
         if (n[0] == "read"):
