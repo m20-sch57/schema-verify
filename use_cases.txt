@@ -16,3 +16,8 @@ bool give_schema(user, task, schema_number){
 	- получает ID
 	- берет схему из "ящика"
 }
+
+void register(login, password){
+	- проверяем есть ли такой пользователь
+	- добавляем в "ящик"
+}
