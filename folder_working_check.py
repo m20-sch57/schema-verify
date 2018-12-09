@@ -9,6 +9,7 @@ shutil.rmtree(path) - удалить дерево
 os.path.isfile(path) - проверка наличия файла
 os.path.isdir(path) - проверка наличия папки
 os.getcwd() - путь к программе(сама программа в него не входит)
+os.remove(path) - удалить файл
 """
 
 def runtime_exit_print():
@@ -61,7 +62,19 @@ def delete_folder(path):
             print("deleted successfully")
             return 0
         except:
+            print("failed to delete")
             return 1
+        
+def delete_file(path):
+    path = root + path
+    if not(os.path.isfile(path)):
+        print("no such file")
+        return 1
+    try:
+        os.remove(path)
+        print("deleted successfully")
+    except:
+        print("failed to delete")
 
 def init():
     if not(os.path.isdir(root)):
@@ -103,9 +116,3 @@ def make_path(s):
         
 #init просто создает рабочую директорию folder
 #reinit ее удаляет и создает заново
-    
-    
-
-    
-    
-            
