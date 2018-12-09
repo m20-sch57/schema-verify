@@ -16,9 +16,9 @@ def runtime_exit_print():
     print("ARE YOU STUPID? I CAN'T WORK THERE")
 
 self = os.getcwd()
-home = "/.folder"
+home = "/folder"
 root = self + home
-logs = root + "/.log.txt"
+logs = root + "/log.txt"
 
 def log(s):
     fout = open(logs, "a")
