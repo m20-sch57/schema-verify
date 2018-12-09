@@ -16,76 +16,88 @@ def runtime_exit_print():
     print("ARE YOU STUPID? I CAN'T WORK THERE")
 
 self = os.getcwd()
-home = "/folder"
+home = "/.folder"
 root = self + home
+logs = root + "/.log.txt"
+
+def log(s):
+    fout = open(logs, "a")
+    print(s, file=fout)
+    fout.close()
 
 def create_folder(path):
     path = root + path
+    if os.path.isdir(path):
+        log("folder already exists : " + path)
+        return 0
     try:
         os.mkdir(path)
-        print("created successfully")
+        log("created folder successfully : " + path)
         return 0
     except:
         try:
             os.makedirs(path)
-            print("created successfully")
+            log("created folder successfully : " + path)
             return 0
         except:
-            print("failed to create")
+            log("failed to create folder : " + path)
             return 1
 
 def create_file(path, filename):
-    path = root + path
-    filename = path + filename
+    filename = root + path + filename
     create_folder(path)
     try:
         fout = open(filename, "w")
         fout.close()
-        print("successfully created file")
+        log("successfully created file : " + filename)
         return 0
     except:
-        print("failed to create the file")
+        log("failed to create the file : " + filename)
         return 1
 
 def delete_folder(path):
     path = root + path
     if not(os.path.isdir(path)):
-        print("no such directory")
+        log("no such folder : " + path)
         return 1
     try:
         os.rmdir(path)
-        print("deleted successfully")
+        log("deleted folder successfully : " + path)
         return 0
     except:
         try:
             shutil.rmtree(path)
-            print("deleted successfully")
+            log("deleted folder successfully : " + path)
             return 0
         except:
-            print("failed to delete")
+            log("failed to delete folder : " + path)
             return 1
         
 def delete_file(path):
     path = root + path
     if not(os.path.isfile(path)):
-        print("no such file")
+        log("no such file : " + path)
         return 1
     try:
         os.remove(path)
-        print("deleted successfully")
+        log("deleted file successfully : " + path)
     except:
-        print("failed to delete")
+        log("failed to delete file : " + path)
 
 def init():
     if not(os.path.isdir(root)):
         try:
             os.mkdir(root)
-            print("root folder initialized")
+            fout = open(logs, "w")
+            print("root folder initialized", file=fout)
+            fout.close()
             return 0
         except:
             try:
                 os.makedirs(root)
-                print("root folder initialized")
+                fout = open(logs, "w")
+                print("root folder initialized", file=fout)
+                fout.close()
                 return 0
             except:
                 print("failed to init")
@@ -94,19 +106,14 @@ def init():
 
 def reinit():
     if os.path.isdir(root):
-        delete_folder("")
-    try:
-        os.mkdir(root)
-        print("root folder reinitialized")
-        return 0
-    except:
         try:
-            os.makedirs(root)
-            print("root folder reinitialized")
-            return 0
+            os.rmdir(root)
         except:
-            print("failed to reinit")
-            return 1
+            try:
+                shutil.rmtree(root)
+            except:
+                return 1
+    return init()
 
 def make_path(s):
     if s == "" or s[0] == '/':
