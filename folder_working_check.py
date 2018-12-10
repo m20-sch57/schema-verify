@@ -12,9 +12,6 @@ os.getcwd() - путь к программе(сама программа в не
 os.remove(path) - удалить файл
 """
 
-def runtime_exit_print():
-    print("ARE YOU STUPID? I CAN'T WORK THERE")
-
 self = os.getcwd()
 home = "/folder"
 root = self + home
@@ -24,6 +21,47 @@ def log(s):
     fout = open(logs, "a")
     print(s, file=fout)
     fout.close()
+
+def write(path, filename, text):
+    filename = root + path + filename
+    if not(os.path.isfile):
+        return 1
+    try:
+        fout = open(filename, "w")
+        for i in text:
+            print(i, file=fout)
+        fout.close()
+        return 0
+    except:
+        return 1
+
+def add_write(path, filename, text):
+    filename = root + path + filename
+    if not(os.path.isfile):
+        return 1
+    try:
+        fout = open(filename, "a")
+        for i in text:
+            print(i, file=fout)
+        fout.close()
+        return 0
+    except:
+        return 1
+
+def get_text(path, filename):
+    filename = root + path + filename
+    ans = ""
+    if os.path.isfile(filename):
+        try:
+            fin = open(filename, "r")
+            for i in fin.readlines():
+                ans += i
+                ans += "\n"
+            ans = ans[:-1]
+            return ans
+        except:
+            return ""
+    return ""
 
 def create_folder(path):
     path = root + path
