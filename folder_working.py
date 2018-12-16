@@ -96,6 +96,17 @@ def delete_file(path, filename):
     except:
         log("failed to delete file : " + path)
 
+def to_string(filename):
+    #list of str
+    filename = make_path(filename)
+    answer = []
+    fin = open(root + filename, "r")
+    answer = fin.readlines()
+    fin.close()
+    #единственный известный мне способ очистить файл на питоне
+    delete_file(file_name)
+    return answer
+
 def init():
     if not(os.path.isdir(root)):
         try:
