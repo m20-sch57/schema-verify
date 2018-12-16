@@ -13,16 +13,28 @@ os.remove(path) - удалить файл
 """
 
 def runtime_exit_print():
-    print("ARE YOU STUPID? I CAN'T WORK THERE")
+    print("RUNTIME_ERROR")
 
 self = os.getcwd()
-home = "/folder"
+home = "/.folder"
 root = self + home
-logs = root + "/log.txt"
+logs = root + "/.log.txt"
+
+def make_path(s):
+    if s == "" or s[0] == '/':
+        return s
+    return "/" + s
 
 def log(s):
     fout = open(logs, "a")
     print(s, file=fout)
+    fout.close()
+
+def write_text(path, filename, text):
+    filename = root + path + filename
+    fout = open(filename, "w")
+    for i in text:
+        print(i, file = fout, end="")
     fout.close()
 
 def create_folder(path):
@@ -73,8 +85,8 @@ def delete_folder(path):
             log("failed to delete folder : " + path)
             return 1
         
-def delete_file(path):
-    path = root + path
+def delete_file(path, filename):
+    path = root + path + filename
     if not(os.path.isfile(path)):
         log("no such file : " + path)
         return 1
@@ -115,11 +127,45 @@ def reinit():
                 return 1
     return init()
 
-def make_path(s):
-    if s == "" or s[0] == '/':
-        return s
-    return "/" + s
-        
+def folder_exists(path):
+    return os.path.isdir(path)
+
+def add_user(user):
+    
+    #Помимо создания папки надо добавлять юзера куда-то
+    
+    path = make_path(user)
+    create_folder(path)
+
+def add_user_problem(user, problem):
+    
+    #помимо создания папки надо добавлять этому юзеру задачу
+    
+    path = make_path(user) + make_path(prblem)
+    create_folder(path)
+    
+def add_submission(user, problem, submission):
+    
+    #надо добавить юзеру посылку по этой задаче
+    
+    path = make_path(user) + make_path(problem)
+    submission = str(submission)
+    filename = make_path(submission)
+    create_file(path, filename)
+    
+def write_submission(user, problem, submission, text):
+    submission = str(submission)
+    add_submission(user, problem, submission)
+    path = make_path(user) + make_path(problem)
+    filename = make_path(submission)
+    write_text(path, filename, text)
+    
+#последние 2 ф-ции выглядят странно, но я хотел иметь возможность как просто создать файл так и записать код юзера
+    
+def delete_user(user):
+    path = make_path(user)
+    remove_folder(path)
+    
         
 #init просто создает рабочую директорию folder
 #reinit ее удаляет и создает заново
