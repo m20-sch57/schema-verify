@@ -10,6 +10,7 @@ os.path.isfile(path) - проверка наличия файла
 os.path.isdir(path) - проверка наличия папки
 os.getcwd() - путь к программе(сама программа в него не входит)
 os.remove(path) - удалить файл
+os.listdir(path) -посмотреть какие файлы тут есть
 """
 
 def runtime_exit_print():
@@ -36,6 +37,11 @@ def write_text(path, filename, text):
     for i in text:
         print(i, file = fout, end="")
     fout.close()
+    log("written some text in '" + filename + "'")
+
+def getdirs(path):
+    path = root + path
+    return os.listdir(path)
 
 def create_folder(path):
     path = root + path
@@ -148,27 +154,27 @@ def add_user(user):
     path = make_path(user)
     create_folder(path)
 
-def add_user_problem(user, problem):
+def add_user_task(user, task):
     
     #помимо создания папки надо добавлять этому юзеру задачу
     
-    path = make_path(user) + make_path(prblem)
+    path = make_path(user) + make_path(task)
     create_folder(path)
     
-def add_submission(user, problem, submission):
+def add_submit(user, task, submit):
     
     #надо добавить юзеру посылку по этой задаче
     
-    path = make_path(user) + make_path(problem)
-    submission = str(submission)
-    filename = make_path(submission)
+    path = make_path(user) + make_path(task)
+    submit = str(submit)
+    filename = make_path(submit)
     create_file(path, filename)
     
-def write_submission(user, problem, submission, text):
-    submission = str(submission)
-    add_submission(user, problem, submission)
-    path = make_path(user) + make_path(problem)
-    filename = make_path(submission)
+def write_submit(user, task, submit, text):
+    submit = str(submit)
+    add_submit(user, task, submit)
+    path = make_path(user) + make_path(task)
+    filename = make_path(submit)
     write_text(path, filename, text)
     
 #последние 2 ф-ции выглядят странно, но я хотел иметь возможность как просто создать файл так и записать код юзера
