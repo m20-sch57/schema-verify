@@ -147,7 +147,7 @@ def reinit():
 def folder_exists(path):
     return os.path.isdir(path)
 
-def add_user(user):
+"""def add_user(user):
     
     #Помимо создания папки надо добавлять юзера куда-то
     
@@ -181,7 +181,7 @@ def write_submit(user, task, submit, text):
     
 def delete_user(user):
     path = make_path(user)
-    remove_folder(path)
+    remove_folder(path)"""
     
         
 #init просто создает рабочую директорию folder
