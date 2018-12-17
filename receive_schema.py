@@ -15,7 +15,7 @@ def read_schemas():
     fin.close()
 
 def read_tests():
-    global
+    global 
 
 def write_schemas():
     global schema_folder, t

@@ -109,8 +109,6 @@ def to_string(filename):
     fin = open(root + filename, "r")
     answer = fin.readlines()
     fin.close()
-    #единственный известный мне способ очистить файл на питоне
-    delete_file(file_name)
     return answer
 
 def init():
