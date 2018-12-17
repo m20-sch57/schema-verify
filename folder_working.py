@@ -102,9 +102,8 @@ def delete_file(path, filename):
     except:
         log("failed to delete file : " + path)
 
-def to_string(filename):
+def read_text(filename):
     #list of str
-    filename = make_path(filename)
     answer = []
     fin = open(root + filename, "r")
     answer = fin.readlines()
