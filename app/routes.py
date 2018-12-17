@@ -27,6 +27,12 @@ def setcoockie():
     resp.set_cookie('username', username)
     session['username'] = request.form['username']
     return resp     
+
+
+@app.route('/logout')
+def logoutuser():
+    session.pop('username', None)
+    return redirect('/index')
     
     
 @app.route('/getcookie')
