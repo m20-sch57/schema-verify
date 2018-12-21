@@ -24,6 +24,12 @@ def read():
             for sub in FW.getdirs(now2):
                 submits[user][task].append(sub)
     
+def set_passwrod(user, password):
+    global submits, own_dir
+    if user in submits:
+        path = own_dir + FW.make_path(user)
+        FW.write_text(path, "/.password.txt", password)
+
 def new_user(user, password):
     global submits, own_dir
     if user not in submits:
@@ -31,7 +37,7 @@ def new_user(user, password):
         path = own_dir + FW.make_path(user)
         FW.create_folder(path)
         FW.create_file(path, "/.password.txt")
-        FW.write_text(path, "/.password.txt", password)
+        set_password(user, password)
 
 def get_password(user):
     global submits, own_dir
