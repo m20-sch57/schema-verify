@@ -37,6 +37,18 @@ def translate_var(var):
     ans += "\n"
     return ans
 
+def getchars(word):
+    pos = 0
+    while pos < len(word) and not(is_good(word[pos])):
+        pos += 1
+    word = word[pos:]
+    pos = -1
+    while pos >= 0 and not(is_good(word[pos])):
+        pos -= 1
+    if pos != 0:
+        word = word[:pos]
+    return word
+
 def translate_line(line):
     if line == "":
         return ""
@@ -48,7 +60,10 @@ def translate_line(line):
         else:
             line1.append(line[i])
     line = line1
-    ans = line[2] + " = " + line[1] + line[0]
+    if line[2] == 'and' or line[2] == 'or':
+        ans = line[3] + " = " + getchars(line[0]) + " " + line[2] + " " + getchars(line[1]) + "\n"
+        return ans
+    ans = line[3] + " = " + line[2] + line[0] + line[1] + "\n"
     return ans
 
 def translate(func):
@@ -68,6 +83,7 @@ def translate(func):
             break
         else:
             ans.append(tab + translate_line(func[i]))
+    ans += "    return " + name[1] + "\n"
     return ans
     
     
@@ -75,13 +91,16 @@ def get(lines):
     cur = []
     ans = []
     for i in lines:
-        if i == "":
+        if i == "\n":
             ans += translate(cur)
+            ans += ["\n"]
             cur = []
         else:
             cur.append(i)
     ans += translate(cur)
     return ans
 
-fin = open("input.txt", "r")
-print("".join(get(fin.readlines())))
+fin = open("received.txt", "r")
+a = fin.readlines()
+print(a)
+print("".join(get(a)))
