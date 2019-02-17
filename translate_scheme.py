@@ -63,6 +63,8 @@ def translate_name(name):
 
 def translate_var(line):
     line = split(line)
+    if line[0] != "local":
+        return 5 / 0
     ans = []
     for i in line:
         if i == "local":
@@ -71,6 +73,10 @@ def translate_var(line):
     return ans
 
 def translate_line(line):
+    if not(line):
+        return ""
+    if to_letters(line) == "end":
+        return ""
     args = "("
     r_name = ""
     out = "("
@@ -99,14 +105,45 @@ def translate_line(line):
         if i[-1] == ')':
             is_a = 2
     args += ")"
+    s_args = list(map(to_letters, split(args)))
     out += ")"
     args = translate_args(args)
     out = translate_args(out)
     if r_name == "and" or r_name == "or":
+        return out + " = " + s_args[0] + " " + r_name + " " + s_args[1]
     elif r_name == "not":
+        return out + " = not" + args
     else:
         return out + " = " + r_name + args
     
+def translate_scheme(lines):
+    tab = "    "
+    name = translate_name(lines[0])
+    beg = 2
+    ln = [name[0]]
+    try:
+        local = translate_var(lines[1])
+        for i in local:
+            ln.append(tab + i)
+    except:
+        beg = 1
+    for i in range(beg, len(lines)):
+        if translate_line(lines[i]):
+            ln.append(tab + translate_line(lines[i]))
+    ln += [tab + name[1]]
+    return ln
+
+def translate_all(lines):
+    cur = []
+    ans = []
+    for i in lines:
+        if to_letters(i) == "end":
+            ans += translate_scheme(cur)
+            ans.append("")
+            cur = []
+        elif to_letters(i):
+            cur.append(i)
+    return ans
 
 fin = open("received.txt", "r")
-print(translate_line(fin.readline()))
+print("\n".join(translate_all(fin.readlines())))

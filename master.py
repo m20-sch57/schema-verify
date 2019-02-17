@@ -1,5 +1,8 @@
-import folder_working as FW
-
+try:
+    import folder_working as FW
+except:
+    from app.DB import folder_working
+    
 #тут всякие глобальные переменные
 
 #submits - map<string, map<string, vector<string> > > , где submits[user][task] - список имен посылок юзера user по задаче task 
@@ -37,7 +40,16 @@ def new_task(user, task):
         submits[user][task] = []
         FW.create_folder(own_dir + FW.make_path(user) + FW.make_path(task))
 
-def new_submit(user, task, submit, text):
+def new_submit(user, task, text):
     global submits, own_dir
-    new_task(task)
+    new_task(user, task)
+    path = own_dir + FW.make_path(user) + FW.make_path(task)
+    num = len(FW.getdirs(path))
+    name = FW.make_path(str(num))
+    FW.create_file(path, name)
+    FW.write_text(path, name, text)
+    
+
+new_submit("sasha", "random_combination_of_letters", "111")
+    
     
