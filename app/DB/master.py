@@ -9,7 +9,6 @@ except:
 own_dir = "/.submits"
     
 def set_password(user, password):
-    global submits, own_dir
     if user_in_DB(user):
         path = own_dir + FW.make_path(user)
         FW.write_text(path, "/.password.txt", [password])
