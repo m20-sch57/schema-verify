@@ -49,7 +49,5 @@ def new_submit(user, task, text):
     FW.create_file(path, name)
     FW.write_text(path, name, text)
     
-
-new_submit("sasha", "random_combination_of_letters", "111")
     
     
