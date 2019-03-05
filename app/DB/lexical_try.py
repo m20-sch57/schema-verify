@@ -1,3 +1,5 @@
+## -*- coding utf-8 -*-
+
 def translate_name(name):
     ans = []
     name = name.split()

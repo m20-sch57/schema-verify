@@ -1,3 +1,5 @@
+## -*- coding utf-8 -*-
+
 def is_good(sym):
     return ord('a') <= ord(sym) <= ord('z') or ord('A') <= ord(sym) <= ord('Z') or ord('0') <= ord(sym) <= ord('9')
 

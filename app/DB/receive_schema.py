@@ -1,3 +1,5 @@
+## -*- coding utf-8 -*-
+
 schema_folder = []
 tests_folder = []
 is_schemas_read = False

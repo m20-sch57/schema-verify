@@ -1,3 +1,5 @@
+## -*- coding utf-8 -*-
+
 import folder_working as FW
 
 tasks = dict()
