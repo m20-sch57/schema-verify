@@ -6,7 +6,13 @@ tasks = dict()
 own_dir = "/.tasks"
 tests_dir = "/tests"
 
+def task_exists(name):
+    name = FW.make_path(name)
+    return FW.folder_exists(own_dir + name)
+
 def add_task(task):
+    if (task_exists(task)):
+        return
     FW.create_folder(own_dir + FW.make_path(task))
     tests = own_dir + FW.make_path(task) + tests_dir
     FW.create_folder(tests)
@@ -14,7 +20,7 @@ def add_task(task):
 def add_test(task, test, answer):
     path = own_dir + FW.make_path(task) + tests_dir
     num = len(FW.getdirs(path))
-    name = str(num)
+    name = str(num // 2)
     FW.create_file(path, FW.make_path(name + ".txt"))
     FW.write_text(path, FW.make_path(name + ".txt"), test)
     FW.create_file(path, FW.make_path(name + ".ans"))
@@ -42,4 +48,8 @@ def get_test_output(task, num):
     path = own_dir + FW.make_path(task) + tests_dir + "/" + str(num) + ".ans"
     return "".join(FW.to_string(path))    
     
-      
+def get_tasks_list():
+    return FW.getdirs(own_dir)
+
+def init():
+    FW.make_fodler(own_dir)

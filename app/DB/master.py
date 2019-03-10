@@ -20,6 +20,21 @@ def new_user(user, password):
         FW.create_file(path, "/.password.txt")
         set_password(user, password)    
 
+def make_admin(user):
+    if user_in_DB(user):
+        path = own_dir + FW.make_path(user)
+        FW.create_file(path, "/.admin")
+        
+def is_admin(user):
+    if not(user_in_DB(user)):
+        return 0
+    return FW.file_exists(own_dir + FW.make_path(user) + "/.admin")
+
+def make_not_admin(user):
+    if user_in_DB(user):
+        path = own_dir + FW.make_path(user)
+        FW.delete_file(path, "/.admin")    
+
 def get_password(user):
     if user_in_DB(user):
         path = own_dir + FW.make_path(user) + "/.password.txt"
@@ -45,3 +60,6 @@ def new_submit(user, task, text):
     
 def user_in_DB(user):   
     return FW.is_folder(own_dir + FW.make_path(user))
+
+def init():
+    FW.make_fodler(own_dir)

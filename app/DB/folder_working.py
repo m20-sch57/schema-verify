@@ -40,6 +40,14 @@ def write_text(path, filename, text):
         print(i, file = fout, end="")
     fout.close()
     log("written some text in '" + filename + "'")
+    
+def add_text(path, filename, text):
+    filename = root + path + filename
+    fout = open(filename, "a")
+    for i in text:
+        print(i, file = fout, end="")
+    fout.close()
+    log("written some text in '" + filename + "'")    
 
 def getdirs(path):
     path = root + path
@@ -111,7 +119,11 @@ def to_string(filename):
     #list of str
     filename = make_path(filename)
     answer = []
-    fin = open(root + filename, "r")
+    try:
+        fin = open(root + filename, "r")
+    except:
+        log("no such file : " + root + filename)
+        return ""
     answer = fin.readlines()
     fin.close()
     return answer
@@ -148,7 +160,10 @@ def reinit():
     return init()
 
 def folder_exists(path):
-    return os.path.isdir(path)
+    return os.path.isdir(root + path)
+
+def file_exists(path):
+    return os.path.isfile(root + path)
 
 """def add_user(user):
     
