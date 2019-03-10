@@ -12,8 +12,11 @@ except ImportError:
 own_dir = "/.submits"
 _name = "/.name.txt"
 
+def id_in_DB(ind):
+    return FW.is_folder(own_dir + FW.make_path(ind))
+
 def user_in_DB(user):   
-    return FW.is_folder(own_dir + FW.make_path(user))    
+    return get_id_by_name(user) != -1   
 
 def init_user(ind):
     path = FW.make_path(str(ind))
@@ -23,12 +26,12 @@ def init_user(ind):
     FW.write_text(own_dir + path, _name, "unnamed")
     
 def set_password(user, password):
-    if user_in_DB(user):
+    if id_in_DB(user):
         path = own_dir + FW.make_path(user)
         FW.write_text(path, "/.password.txt", [password])
 
 def set_name(ind, user):
-    if user_in_DB(ind):
+    if id_in_DB(ind):
         if get_id_by_name(user) != -1:
             return 1
         path = own_dir + FW.make_path(ind)
@@ -56,28 +59,28 @@ def new_user_by_name(user, password):
 def get_id_by_name(name):
     x = FW.getdirs(own_dir)
     for c in x:
-        now = FW.read_str(own_dir + FW.make_path(c), _name)
+        now = FW.read_str(own_dir + FW.make_path(c) + _name)
         if now == name:
             return int(c)
     return -1
 
 def make_admin(user):
-    if user_in_DB(user):
+    if id_in_DB(user):
         path = own_dir + FW.make_path(user)
         FW.create_file(path, "/.admin")
         
 def is_admin(user):
-    if not(user_in_DB(user)):
+    if not(id_in_DB(user)):
         return 0
     return FW.file_exists(own_dir + FW.make_path(user) + "/.admin")
 
 def make_not_admin(user):
-    if user_in_DB(user):
+    if id_in_DB(user):
         path = own_dir + FW.make_path(user)
         FW.delete_file(path, "/.admin")    
 
 def get_password(user):
-    if user_in_DB(user):
+    if id_in_DB(user):
         path = own_dir + FW.make_path(user) + "/.password.txt"
         return "".join(FW.to_string(path))
     else:
