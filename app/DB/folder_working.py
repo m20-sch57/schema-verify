@@ -24,6 +24,7 @@ root = self + home
 logs = root + "/.log.txt"
 
 def make_path(s):
+    s = str(s)
     if s == "" or s[0] == '/':
         return s
     return "/" + s
@@ -127,6 +128,10 @@ def to_string(filename):
     answer = fin.readlines()
     fin.close()
     return answer
+
+def read_str(filename):
+    x = to_string(filename)
+    return "".join(x)
 
 def init():
     if not(os.path.isdir(root)):
