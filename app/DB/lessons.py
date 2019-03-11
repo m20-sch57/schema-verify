@@ -23,6 +23,10 @@ def new_lesson():
     FW.create_file(path, _tasks)
     return num
 
+def get_name(ind):
+    path = "/" + str(ind)
+    return FW.read_str(own_dir + path + _name) 
+
 def get_id_by_name(lesson):
     x = FW.getdirs(own_dir)
     for ind in x:
@@ -41,7 +45,9 @@ def set_name(ind, name):
     return 0
 
 def lessons_list():
-    return FW.getdirs(own_dir)
+    lst = list(map(int, FW.getdirs(own_dir)))
+    lst.sort()
+    return lst
 
 def add_lesson(name):
     if (get_id_by_name(name) != -1):
