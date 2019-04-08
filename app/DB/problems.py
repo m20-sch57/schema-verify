@@ -89,7 +89,9 @@ def add_statements(task, text):
     
 def get_statements(task):
     path = own_dir + FW.make_path(task) + "/statements.txt"
-    answer = "".join(FW.to_string(path))
+    answer = FW.to_string(path)
+    for i in range(len(answer)):
+        answer[i] = answer[i].strip()
     return answer
         
 def get_test_input(task, num):
