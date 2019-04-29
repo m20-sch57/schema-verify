@@ -1,7 +1,54 @@
 {% extends "base.html" %}
 
 {% block content %}
-	*Место для контента*
-	<h2 style="font-family:verdana">Эта страница в стадии разработки</h2>
-	<img src="https://avatars.mds.yandex.net/get-pdb/245485/6aa8f2b9-aa6e-4520-a1a7-618a199b2ad2/orig" height="320">
+	<h2 class="name">SchemaCoder в стадии разработки</h2>
+	<div style="float:right width:auto" >
+		<img src = {{ url_for('static', filename='images/coding_man.gif') }} width="25%" style="float:right">
+	</div>
+	<div class="content" style="float:left; width:70%">	
+		<!--
+		
+		<h2><strong>дд.мм</strong></h2>
+		<p>
+			описание новости</br>
+			<ul>
+				<li>первый пункт</li>
+				<li>второй пункт</li>
+				<li>третий пункт</li>
+			</ul>
+		</p>	
+		<hr>
+		
+		-->
+		
+		<h2><strong>19.04</strong></h2>
+		<p>
+			Видимых изменений не наблюдается</br>
+		</p>	
+		<p>
+			Возможность отправлять на сервер файлы находится в стадии разработки</br>
+		</p>	
+		<hr>
+
+		<h2><strong>18.04</strong></h2>
+		<p>
+			Полностью изменен дизайн сайта
+		</p>
+		<hr>
+		
+		<h2><strong>17.04</strong></h2>
+		<p>
+			Мы переписали часть кода на CSS, так что теперь SchemaCoder выглядит опрятнее</br>
+			<ul>
+				<li>Название теперь написано двумя цветами</li>
+				<li>На всем сайте установлен шрифт helvetica, arial или sens-serif в зависимости от браузера, с помощью которого открывается SchemaCoder</li>
+			</ul>
+		</p>
+		<p>
+			Также у пользователей теперь есть возможность скачивать условия задач, а админы снова могут создавать несколько новых задач в контесте 
+		</p>
+		<hr>
+		
+
+	</div>
 {% endblock %}

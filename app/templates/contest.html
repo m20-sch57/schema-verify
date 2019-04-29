@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<div style = 'margin: 10px'>
 	{% for task in tasks_list %}
 		<p>
-		<a href = /{{ 'task/' + tasks_id[task]|string }}> Задача {{ task }} </a>
+		<a href = /{{ 'task/' + ContestId|string + '/' + tasks_id[task]|string }}> Задача {{ task }} </a>
+		
+		{% if admin %}
+			<a href = /{{ 'remove_task/' + ContestId|string + '/' + tasks_id[task]|string }}><button class="btn">Удалить</button></a>
+		{% endif %}
 		</p>
 	{% endfor %}
 	{% if admin %}
@@ -11,4 +16,5 @@
 		<a href = /{{ 'create_new_task/' + ContestId|string }}><button class="btn">Добавить задачу</button></a>
 		</p>
 	{% endif %}
+	</div>
 {% endblock %}

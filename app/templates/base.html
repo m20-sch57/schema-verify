@@ -1,23 +1,31 @@
+<!DOCTYPE html>
 <html>
-	<body style = "background-color: DDE1GG;">
+<head>
+    <title>SchemaCoder</title>
+    <meta charset="utf-8">
+	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/for_base_style.css') }}">
+</head>
+<body>
 	<div id="container">
- 
-        <div id="header" style="background-color:#BDEEFF;">
-            <div style="text-align:center"><strong><a style="font-family:verdana;font-size:35px;">S<a style="font-family:verdana;font-size:25px;">CHEMA<a style="font-family:verdana;font-size:35px;color: 336699">C<a style="font-family:verdana;font-size:25px;color: 336699">ODER</a></strong></div>
+        <div class="header">
+			<div style="text-align:center"><strong><a class="nameS">S</a><a class="nameCHEMA">CHEMA</a><a class="nameC">C</a><a class="nameODER">ODER</a></strong></div> 
 			{% if ('username' in session) %}
-	    		<div><a>{{ session['username'] }}</a> | <a href='/logout'>Выйти</a></div>
-		    {% else %}
-		    	<div><a href = '/enter'>Войти</a> | <a href='/register'>Зарегистрироваться</a></div>
+				<h3 class='header_menu'> 
+				{{ session['username'] }} | <a class='header_menu' href='/logout'>Выйти</a>
+				</h3>
+			{% else %}
+		    	<h3 class='header_menu'>
+				<a class='header_menu' href = '/enter'>Войти</a> | <a class='header_menu' href='/register'>Зарегистрироваться</a>
+				</h3>	
 		    {% endif %}
-			<div>
-				<a href = "/home">Главная</a> |
-				<a href = "/directory">Соревнования</a> |
-				<a href = "/how_it_works">Помощь</a> | 
-				<a href = "/about_us">О нас</a> |
+			<div class='header_menu'>
+				<a class='header_menu' href = "/home">Главная</a> |
+				<a class='header_menu' href = "/directory">Соревнования</a> |
+				<a class='header_menu' href = "/how_it_works">Помощь</a> | 
+				<a class='header_menu' href = "/about_us">О нас</a> |
 			</div>
 	    </div>
 		{% block content %}{% endblock %}
 	</div>
-	</body>
-
+</body>
 </html>

@@ -5,7 +5,7 @@ import sys
 from flask import make_response, request
 from flask import session
 from flask import redirect, render_template, flash
-from flask import send_file
+from flask import send_file, url_for
 app.secret_key = 'random_combination_of_letters_numbers_and_symbols'
 
 try:
@@ -22,8 +22,47 @@ except ImportError:
     import problems as P
 
 
+'''
 
-task_num = [1, 2, 3, 4]
+⢀⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀
+     ⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀
+   ⠀ ⢀⡀⠁⠀⠀⠈⠙⠛⠂⠈⣿⣿⣿⣿⣿⠿⡿⢿⣆⠀⠀⠀⠀⠀⠀
+   ⠀⢀⡾⣁⣀⠀⠴⠂⠙⣗⡀⠀⢻⣿⣿⠭⢤⣴⣦⣤⣹⠀⠀⠀⢀⢴⣶⣆ ⠀⠀
+   ⢀⣾⣿⣿⣿⣷⣮⣽⣾⣿⣥⣴⣿⣿⡿⢂⠔⢚⡿⢿⣿⣦⣴⣾⠁⠸⣼⡿ ⠀
+  ⢀⡞⠁⠙⠻⠿⠟⠉⠀⠛⢹⣿⣿⣿⣿⣿⣌⢤⣼⣿⣾⣿⡟⠉⠀⠀⠀⠀⠀ ⠀
+  ⣾⣷⣶⠇⠀⠀⣤⣄⣀⡀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ ⠀
+  ⠉⠈⠉⠀⠀⢦⡈⢻⣿⣿⣿⣶⣶⣶⣶⣤⣽⡹⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀
+          ⠉⠲⣽⡻⢿⣿⣿⣿⣿⣿⣿⣷⣜⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀
+           ⢸⣿⣿⣷⣶⣮⣭⣽⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀
+        ⣀⣀⣈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀
+        ⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀
+        ⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉
+
+Somebody once told me the world is gonna roll me
+I ain't the sharpest tool in the shed
+She was looking kind of dumb with her finger and her thumb
+In the shape of an "L" on her forehead
+
+Well the years start coming and they don't stop coming
+Fed to the rules and I hit the ground running
+Didn't make sense not to live for fun
+Your brain gets smart but your head gets dumb
+So much to do, so much to see
+So what's wrong with taking the back streets?
+You'll never know if you don't go
+You'll never shine if you don't glow
+
+Hey now, you're an all-star, get your game on, go play
+Hey now, you're a rock star, get the show on, get paid
+And all that glitters is gold
+Only shooting stars break the mold
+
+It's a cool place and they say it gets colder
+You're bundled…
+
+'''
 
 
 
@@ -127,7 +166,7 @@ def after_register_page():
     
     #запихивание пользователя в Дата базу
     M.new_user_by_name(username, password)
-    if (username == 'admin'):
+    if (username[0:5] == 'admin'):
         M.make_admin(username)
     init_session(username)
     return redirect('/index')
@@ -192,28 +231,81 @@ def create_new_contest():
 
 
 @app.route('/contest/<ContestId>')
-def contest(ContestId):
-    tasks_list = list(map(P.get_name, P.tasks_list()))
-    #contests_list = list(map(L.get_name, L.lessons_list()))
+def contest(ContestId):   
+    tasks_list = list(map(P.get_name, L.tasks_list(ContestId)))
     tasks_id = dict()
-    #contests_id = dict()
     for task in tasks_list:
         tasks_id[task] = P.get_id_by_name(task)
-    #for contest in contests_list:
-    #    contests_id[contest] = L.get_id_by_name(contest)
-    return render_template('contest.html', title = 'Directory', session = session, tasks_list = tasks_list, tasks_id = tasks_id, admin = (('username' in session) and (M.is_admin(session['username'])) ), ContestId = ContestId)
-    #return render_template('directory.html', title = 'Directory', session = session, contests_list = contests_list, contests_id = contests_id, admin = (('username' in session) and (M.is_admin(session['username'])) ))
+
+    return render_template('contest.html', title = 'Contest', session = session, tasks_list = tasks_list, tasks_id = tasks_id, admin = (('username' in session) and (M.is_admin(session['username'])) ), ContestId = ContestId)
 
     
 @app.route('/create_new_task/<ContestId>')
 def create_new_task(ContestId):
-    L.add_task(ContestId, str(len(L.tasks_list(ContestId)) + 1))
+    task = str(int(ContestId) + 1) + "_" + str(len(L.tasks_list(ContestId)) + 1)
+    P.add_task_by_name(task)
+    print(task)
+    print(P.get_id_by_name(task))
+    L.add_task(ContestId, str(P.get_id_by_name(task)))
+    #L.add_task(ContestId, P.add_task())
     return redirect('/contest/' + ContestId)
-    
-    
+
+@app.route('/task/<ContestId>/<TaskId>')
+def task(ContestId, TaskId):
+    tasks_list = list(map(P.get_name, L.tasks_list(ContestId)))
+    tasks_id = dict()
+    for task in tasks_list:
+        tasks_id[task] = P.get_id_by_name(task) 
+    form = SubmitForm()
+    statement = P.get_statements(TaskId)
+    #print(statement)
+    #print(type(statement))
+    task_name = P.get_name(TaskId)
+    return render_template('task.html', title = 'Task', session = session, task_name = task_name, admin = (('username' in session) and (M.is_admin(session['username'])) ), TaskId = TaskId, form = form, statement = statement, ContestId = ContestId, tasks_list = tasks_list, tasks_id = tasks_id) 
+
+'''
+@app.route('/contest/<ContestId>/<TaskId>')
+@app.route('/contest/<ContestId>')
+def contest(ContestId, TaskId = None):
+    tasks_list = list(map(P.get_name, L.tasks_list(ContestId)))
+    tasks_id = dict()
+    for task in tasks_list:
+        tasks_id[task] = P.get_id_by_name(task) 
+    if (TaskId == None):   
+        return render_template('contest.html', title = 'Contest', session = session, tasks_list = tasks_list, tasks_id = tasks_id, admin = (('username' in session) and (M.is_admin(session['username'])) ), ContestId = ContestId)
+
+    else:
+        form = SubmitForm()
+        statement = P.get_statements(TaskId)
+        print(statement)
+        task_name = P.get_name(TaskId)
+        return render_template('task.html', title = 'Task', session = session, task_name = task_name, admin = (('username' in session) and (M.is_admin(session['username'])) ), TaskId = TaskId, form = form, statement = statement, tasks_list = tasks_list, tasks_id = tasks_id)         
+'''
+
+@app.route('/remove_task/<ContestId>/<TaskId>')
+def remove_task(ContestId, TaskId):
+    L.remove_task(ContestId, TaskId)   
+    return redirect('contest/' + ContestId)
 
 '''
 
 directory -> contest -> task
 
 '''
+
+@app.route('/submit_solution/<ContestId>/<TaskId>', methods=['POST'])
+def submit_solution(ContestId, TaskId):
+    username = session['username']
+    #M.new_submit(username, TaskId, "using namespace std;")
+    
+    file = request.files['inputFile']
+    all_file = file.readlines()
+    code = []
+    for line in all_file:
+        code.append(str(line)[2:-5])
+        
+    M.new_submit(username, TaskId, code)
+    
+    #file.save(os.getcwd() + "/.folder/.submits/" + str(M.get_id_by_name(username)) + "/" + TaskId + "/" + file.filename)
+    return redirect('/task/' + ContestId + '/' + TaskId)
+

@@ -1,0 +1,11 @@
+about_us
+base
+contest
+directory
+enter
+home
+how_it_works
+register
+task
+TABLE(html - таблицы)
+
