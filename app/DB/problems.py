@@ -10,6 +10,7 @@ tasks = dict()
 own_dir = "/.tasks"
 _name = "/.name.txt"
 tests_dir = "/tests"
+solve_dir = "/.solution.txt"
 
 def get_name(ind):
     path = "/" + str(ind)
@@ -23,6 +24,17 @@ def get_id_by_name(task):
             return int(ind)
         return -1
     
+def add_solution(ind, text):
+    path = own_dir + FW.make_path(ind)
+    if not(FW.file_exists(path + solve_dir)):
+        FW.create_file(path, solve_dir)
+    FW.write_text(path, solve_dir, text)
+    
+def del_solution(ind):
+    path = own_dir + FW.make_path(ind)
+    if (FW.file_exists(path + solve_dir)):
+        FW.delete_file(path, solve_dir)
+
 def set_name(ind, name):
     path = "/" + str(ind)
     if get_id_by_name(name) != -1:
@@ -77,7 +89,9 @@ def add_statements(task, text):
     
 def get_statements(task):
     path = own_dir + FW.make_path(task) + "/statements.txt"
-    answer = "".join(FW.to_string(path))
+    answer = FW.to_string(path)
+    for i in range(len(answer)):
+        answer[i] = answer[i].strip()
     return answer
         
 def get_test_input(task, num):
@@ -93,5 +107,4 @@ def tasks_list():
 
 def init():
     FW.create_folder(own_dir)
-    
-init()
+
