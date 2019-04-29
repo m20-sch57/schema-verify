@@ -69,7 +69,7 @@ def get_id_by_name(name):
 def get_id(smth):
     if (type(smth) == int):
         return smth
-    return get_id(smth)
+    return get_id_by_name(smth)
 
 def make_admin(user):
     user = get_id(user)
@@ -145,8 +145,14 @@ def get_verdicts(user, task, ind):
     ans = "".join(FW.to_string(path))
     return ans
 
+def verdicts_list(user, task):
+    user = get_id(user)
+    path = res_dir + FW.make_path(user) + FW.make_path(task)
+    ans = list(map(int, FW.getdirs(path)))
+    return ans
+    
 def init():
     FW.create_folder(own_dir)
     FW.create_folder(res_dir)
 
-print(get_verdicts(0, 0, 0))
+#print(verdicts_list(0, 0))
