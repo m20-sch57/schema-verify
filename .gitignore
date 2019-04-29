@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 
 /app/DB/.folder
+/app/DB/sample.py
