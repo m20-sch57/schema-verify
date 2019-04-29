@@ -1,0 +1,23 @@
+<html>
+	<body style = "background-color: DDE1GG;">
+	<div id="container">
+ 
+        <div id="header" style="background-color:#BDEEFF;">
+            <div style="text-align:center"><strong><a style="font-family:verdana;font-size:35px;">S<a style="font-family:verdana;font-size:25px;">CHEMA<a style="font-family:verdana;font-size:35px;color: 336699">C<a style="font-family:verdana;font-size:25px;color: 336699">ODER</a></strong></div>
+			{% if ('username' in session) %}
+	    		<div><a>{{ session['username'] }}</a> | <a href='/logout'>Выйти</a></div>
+		    {% else %}
+		    	<div><a href = '/enter'>Войти</a> | <a href='/register'>Зарегистрироваться</a></div>
+		    {% endif %}
+			<div>
+				<a href = "/home">Главная</a> |
+				<a href = "/directory">Соревнования</a> |
+				<a href = "/how_it_works">Помощь</a> | 
+				<a href = "/about_us">О нас</a> |
+			</div>
+	    </div>
+		{% block content %}{% endblock %}
+	</div>
+	</body>
+
+</html>

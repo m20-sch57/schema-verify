@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for task in tasks_list %}
+		<p>
+		<a href = /{{ 'task/' + tasks_id[task]|string }}> Задача {{ task }} </a>
+		</p>
+	{% endfor %}
+	{% if admin %}
+		<p>
+		<a href = /{{ 'create_new_task/' + ContestId|string }}><button class="btn">Добавить задачу</button></a>
+		</p>
+	{% endif %}
+{% endblock %}

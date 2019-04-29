@@ -65,21 +65,25 @@ def get_id_by_name(name):
     return -1
 
 def make_admin(user):
+    user = get_id_by_name(user)
     if id_in_DB(user):
         path = own_dir + FW.make_path(user)
         FW.create_file(path, "/.admin")
         
 def is_admin(user):
+    user = get_id_by_name(user)
     if not(id_in_DB(user)):
         return 0
     return FW.file_exists(own_dir + FW.make_path(user) + "/.admin")
 
 def make_not_admin(user):
+    user = get_id_by_name(user)
     if id_in_DB(user):
         path = own_dir + FW.make_path(user)
         FW.delete_file(path, "/.admin")    
 
 def get_password(user):
+    user = get_id_by_name(user)
     if id_in_DB(user):
         path = own_dir + FW.make_path(user) + "/.password.txt"
         return "".join(FW.to_string(path))
@@ -87,6 +91,7 @@ def get_password(user):
         return ""
 
 def new_task(user, task):
+    user = get_id_by_name(user)
     if not(FW.folder_exists(own_dir + FW.make_path(user))):
         return 1
     if not(FW.folder_exists(own_dir + FW.make_path(user) + FW.make_path(str(task)))):
@@ -95,6 +100,7 @@ def new_task(user, task):
 
 def new_submit(user, task, text):
     new_task(user, task)
+    user = get_id_by_name(user)
     path = own_dir + FW.make_path(user) + FW.make_path(str(task))
     num = len(FW.getdirs(path))
     name = FW.make_path(str(num))
