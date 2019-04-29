@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 style = "color:336699">Зарегистрироваться в SchemaCoder</h1>
+	<div>
+	    <a> 
+		    <strong>
+	            Создайте учетную запись для входа в систему <br>
+			</strong>
+			Правила регистрации указаны ниже
+		</a>
+	</div>
+	{% if register_error != 'ок' %}
+	    <p style = "color: red;"> *{{ register_error }} </p>
+	{% endif %}
+    <form action = '/after_register_page', method = 'post' novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=20) }} <br>
+			<span style = "color: 99999; font-size:12px">
+			    Будьте внимательны, так как в качестве <br>
+				ника будет отображаться ваш логин
+			</span>
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=20) }} <br>
+			<span style = "color: 99999; font-size:12px">
+			    Пароль должен содержать не менее пяти символов
+			</span>
+        </p>	
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=20) }} <br>
+        </p>	
+        <p>{{ form.submit() }}</p>
+    </form>
+	<ins><h2>Правила регистрации:</h2></ins>
+	<div style = "margin-left:20px";>
+		! Логин должен содержать хотя бы пять символов <br>
+	    ! Логин должен содержать только буквы латинского алфавита, цифры или символ "_" <br>
+	    ! Логин должен содержать хотя бы одну букву <br>
+		! Пароль должен содержать хотя бы пять символов <br>
+		! Пароль должен содержать только буквы латинского алфавита и цифры <br>
+	</div>
+{% endblock %}

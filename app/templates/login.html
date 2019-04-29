@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sign In</h1>
+    <form action='/setcookie', method = 'post' novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=20) }} <br>
+			
+			{% if login_errors == 1 %}
+				<span style="color: red;"> *{{ list_of_login_errors[0] }} </span>
+			{% else %}
+				<span> *{{ list_of_login_errors[0] }} </span>
+			{% endif %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=20) }} <br>
+			
+			{% if login_errors == 1 %}
+				<span style="color: red;"> *{{ list_of_login_errors[1] }} </span>
+			{% else %}
+				<span> *{{ list_of_login_errors[1] }} </span>
+			{% endif %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

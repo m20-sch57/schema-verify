@@ -1,0 +1,5 @@
+created folder successfully : C:\Users\Игорь\Desktop\инфа 2к18\flask2\project\folder schema-verify2\app\DB/.folder/.lessons
+folder already exists : C:\Users\Игорь\Desktop\инфа 2к18\flask2\project\folder schema-verify2\app\DB/.folder/.lessons
+created folder successfully : C:\Users\trole\OneDrive\Рабочий стол\инфа 2к18\flask2\project\folder schema-verify2\app\DB/.folder/.tasks
+folder already exists : C:\Users\trole\OneDrive\Рабочий стол\инфа 2к18\flask2\project\folder schema-verify2\app\DB/.folder/.tasks
+folder already exists : C:\Users\trole\OneDrive\Рабочий стол\инфа 2к18\flask2\project\folder schema-verify2\app\DB/.folder/.tasks
