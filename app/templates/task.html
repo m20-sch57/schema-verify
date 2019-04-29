@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="tasks_menu">
+	<div class="task_menu_inner">
+		{% for task in tasks_list %}
+			<p>
+			{% if (task == task_name) %}
+			<strong>></strong>			
+			{% endif %}
+			<a href = /{{ 'task/' + ContestId|string + '/' + tasks_id[task]|string }}> <strong>Задача</strong> {{ task }} </a>
+			</p>
+		{% endfor %}
+	</div>
+	</div>
+	
+	<div class="content" >
+
+		<h1 class="name">
+		Задача {{ task_name }}
+		</h1>
+		{% if statement %}	
+			<h3><p>
+			{% for statement_line in statement %}
+				{{ statement_line }}<br>
+			{% endfor %}
+			</p></h3>
+		{% else %}
+			<h3>
+			<p>
+			условие
+			условие<br>
+			условие<br>
+			</p>
+			<p>
+			условие
+			условие
+			условие<br>
+			условие
+			условие<br>
+			условие
+			условие<br>
+			</p>
+			<p>
+			условие<br>
+			</p>
+			</h3>	
+		{% endif %}
+		
+		<p><a href= {{ url_for('static', filename='tasks/task_' + ContestId|string + '_' + TaskId|string + '.txt') }} download>Скачать условие</a></p>
+		
+		{% if ('username' in session) %}
+		<!--
+			<form action="/upload" method="post" enctype=".folder">
+				<label for="fileField">Выберите файл для загрузки:</label> <br>
+				<input type="file" name="uploadingFile" id="fileField">
+				
+			</form>
+			
+			<form action = /{{'submit_solution/' + ContestId|string + '/' + TaskId|string}}>
+				{{ form.hidden_tag() }}
+				<p>
+					{{ form.select_file(size = 20) }} <br>
+				</p>
+				<p>
+					{{ form.submit() }}
+				</p>
+			</form>	
+		-->
+			
+			<form action=/{{'submit_solution/' + ContestId|string + "/" + TaskId|string}} method="POST" enctype="multipart/form-data">
+				<div class="file_upload">
+					<label for="inputFile"> Отправить решение </label> <br>
+					<input type="file" name="inputFile">
+				</div>
+				<button type="submit" class="btn btn-default">Отправить</button>
+			</form>
+			<p>
+			{{message}}
+			</p>
+		{% else %}
+			<p> 
+				Чтобы сдать решение, необходимо <a href = '/enter'><button class="btn"> войти </button></a>
+			</p>
+		{% endif %}
+    </div>
+{% endblock %}

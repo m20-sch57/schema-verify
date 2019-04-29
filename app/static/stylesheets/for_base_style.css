@@ -1,0 +1,88 @@
+* {
+	font-family: 	helvetica, arial, sens-serif;
+	color: #444444;
+}
+
+a.nameS {
+	font-size: 40px;
+	/*font-family:verdana;*/
+	font-family:tahoma;
+	color: white;
+}
+
+a.nameCHEMA {
+	font-size: 30px;
+	/*font-family:verdana;*/
+	font-family:tahoma;
+	color: white;
+}
+
+a.nameC {
+	font-size: 40px;	
+	/*font-family:verdana;*/
+	font-family:tahoma;
+	color: white;
+	/*color: #336699;*/
+}
+
+a.nameODER {
+	font-size: 30px;
+	/*font-family:verdana;*/
+	font-family:tahoma;
+	color: white;
+	/*color: #336699;*/
+}
+
+div.header {
+	/*background-color:#BDEEFF;*/
+	/*background-color:#336699;*/
+	/*background-color:#76ADE5;*/
+	background-color:#7FE6E1;
+	padding:10px;
+}
+
+.headrer_menu {
+	color:white;
+}
+
+body {
+	background-color:#F2F2F2;
+}
+
+div.tasks_menu {
+	/*background-color:#DEFFFF;*/ 
+	width:15%;
+	margin:2px; 
+	padding:10px;  
+	float:left;
+}
+
+div.tasks_menu_inner {
+	width:10%;
+	float:left;
+	right:50%;
+}
+
+div.content {
+	/*background-color:#DEFFFF;*/
+	background-color:#FFFFFF;
+	width:50%;
+	margin:10px;
+	padding:20px;  
+	float: left;
+	left: 50%;
+	right: 50%;
+	/*style="background-color:#DEFFFF; width:60%; margin:7px; padding:5%; border:2px solid #ADDEEF; float:left;"*/
+}
+
+.name {
+	font-size: 25px;
+	font-family:verdana;
+	color: #7FE6E1;
+}
+/*
+.btn {
+	background-color: #F2F2F2;
+	border: 1px solid #7FE6E1;
+}
+*/

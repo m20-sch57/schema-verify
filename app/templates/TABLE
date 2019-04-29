@@ -1,0 +1,39 @@
+<html>
+    <body>
+ 
+        <div id="container">
+ 
+        <div id="header" style="background-color:#DDFFDD;">
+            <strong><a style="font-family:verdana;font-size:35px;">S<a style="font-family:verdana;font-size:25px;">CHEMA<a style="font-family:verdana;font-size:35px;color: 336699">C<a style="font-family:verdana;font-size:25px;color: 336699">ODER</a></strong>
+      		{% if ('username' in session) %}
+	    		<div><a>{{ session['username'] }}</a> | <a href='/logout'>Выйти</a></div>
+		    {% else %}
+		    	<div><a href = '/enter'>Войти</a> | <a href='/register'>Зарегистрироваться</a></div>
+		    {% endif %}
+			<div>
+				<a href = "/home">Главная</a> |
+				<a href = "/contests">Соревнования</a> |
+				<a href = "/how_it_works">Помощь</a> | 
+				<a href = "/about_us">О нас</a> |
+			</div>
+			<a href = "/home">Вернуться на сайт</a>
+	    </div>
+ 
+      <div id="menu" style="background-color:#FFFFB8;height:200px;width:100px;float:left;">
+        <b>Меню</b><br>
+        Пункт 1<br>
+        Пункт 2<br>
+        Пункт 3</div>
+ 
+      <div id="content" style="background-color: #fff;height:200px;width:400px;float:left;">
+        Место для контента
+      </div>
+ 
+      <div id="footer" style="background-color:#A3FFC2;clear:both;text-align:center;">
+        Copyright © 2016 web.ryusupov.com
+      </div>
+ 
+    </div>
+ 
+</body>
+</html> 
