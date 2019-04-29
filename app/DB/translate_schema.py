@@ -1,3 +1,4 @@
+
 ## -*- coding utf-8 -*-
 
 def is_good(sym):
@@ -147,5 +148,8 @@ def translate_all(lines):
             cur.append(i)
     return ans
 
-fin = open("received.txt", "r")
-print("\n".join(translate_all(fin.readlines())))
+
+def get(filename):
+    fin = open(filename, "r")
+    ans = "\n".join(translate_all(fin.readlines()))
+    return ans
