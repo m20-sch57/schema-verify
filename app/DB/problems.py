@@ -107,4 +107,4 @@ def tasks_list():
 
 def init():
     FW.create_folder(own_dir)
-    
+

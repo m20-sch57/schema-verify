@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for contest in contests_list %}
+		<p>
+		<a href = /{{ 'contest/' + contests_id[contest]|string }}> Контест {{ contest }} </a>
+		</p>
+	{% endfor %}
+	{% if admin %}
+		<p>
+		<a href="/create_new_contest"><button class="btn">Добавить контест</button></a>
+		</p>
+	{% endif %}
+{% endblock %}

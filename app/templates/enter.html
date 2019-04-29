@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 style = "color:336699">Войти в SchemaCoder</h1>
+    <form action='/after_enter_page', method = 'post' novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=20) }} <br>
+		</p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=20) }} <br>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+	{% if (enter_error) %}
+	    <h4 style="color: FF0000">
+		     wrong login or password
+	    </h4>
+	{% endif %}
+{% endblock %}
