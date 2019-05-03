@@ -13,6 +13,22 @@ own_dir = "/.submits"
 res_dir = "/.results"
 _name = "/.name.txt"
 
+def new_num(user, task):
+    path = own_dir + FW.make_path(user) + FW.make_path(task)
+    cnt = 0
+    mx = -1
+    for i in FW.getdirs(path):
+        x = i.split(".")
+        now = int(x[0])
+        if (now > mx):
+            cnt = 1
+            mx = now
+        elif now == mx:
+            cnt += 1
+    if cnt > 1:
+        return mx + 1
+    return mx
+
 def id_in_DB(ind):
     return FW.is_folder(own_dir + FW.make_path(ind))
 
@@ -111,16 +127,18 @@ def new_task(user, task):
 def new_submit(user, task, text):
     new_task(user, task)
     user = get_id(user)
-    path = own_dir + FW.make_path(user) + FW.make_path(str(task))
-    num = len(FW.getdirs(path))
+    path = own_dir + FW.make_path(user) + FW.make_path(get_id(task))
+    path2 = res_dir + FW.make_path(user) + FW.make_path(get_id(task))
+    num = new_num(user, task)
     name = FW.make_path(str(num))
+    FW.create_folder(path2)
     FW.create_file(path, name)
     FW.write_text(path, name, text)
 
-def add_result(user, task):
-    if not(id_in_DB(user)):
+def add_result(user, task, submit):
+    if not(id_in_DB(get_id(user))):
         return 1
-    path = res_dir + FW.make_path(user) + FW.make_path(task)
+    path = res_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit)
     if not(FW.folder_exists(path)):
         new_task(user, task)
     x = FW.getdirs(path)
