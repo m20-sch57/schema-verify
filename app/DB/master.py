@@ -9,8 +9,8 @@ except ImportError:
     
 #тут всякие глобальные переменные
 
-own_dir = "/.submits"
-res_dir = "/.results"
+own_dir = "/submits"
+res_dir = "/results"
 _name = "/.name.txt"
 
 def new_num(user, task):
@@ -153,11 +153,16 @@ def write_verdict(user, task, ind, text):
 def add_verdict(user, task, ind, text):
     path = res_dir + FW.make_path(user) + FW.make_path(task)
     if FW.file_exists(path + FW.make_path(ind)):
-        FW.add_text(path, FW.make_path(ind), text)    
+        FW.add_text(path, FW.make_path(ind), text + "\n")    
 
 def get_verdicts(user, task, ind):
     path = res_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(ind)
-    ans = "".join(FW.to_string(path))
+    res = FW.to_string(path)
+    ans = []
+    for i in res:
+        now = i.strip()
+        if now:
+            ans.append(now)
     return ans
 
 def verdicts_list(user, task):
@@ -171,4 +176,3 @@ def init():
     FW.create_folder(res_dir)
 
 #print(verdicts_list(0, 0))
-new_submit(0, 0, "", ".py")

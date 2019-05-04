@@ -7,7 +7,7 @@ except ImportError:
     from app.DB import folder_working as FW
     from app.DB import problems as P
 
-own_dir = "/.lessons"
+own_dir = "/lessons"
 _name = "/.name.txt"
 _tasks = "/.tasks.txt"
 

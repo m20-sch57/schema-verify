@@ -1,8 +1,19 @@
+import importlib.util
+
+def get_funcs(file):
+    name = "test"
+    sup = importlib.util.spec_from_file_location(name, file)
+    funcs = importlib.util.module_from_spec(sup)
+    sup.loader.exec_module(funcs)
+    return funcs
+
+
 file = input()
-funcs = __import__(file)
+#funcs = module()
+funcs = get_funcs("./" + file)
 a = list(map(int, input().split()))
 run = file + ".main(" + ', '.join(map(str, a)) + ")"
-res = getattr(funcs, "main")(*a)
+res = funcs.main(*a)
 ans = []
 def add(lst):
     global ans

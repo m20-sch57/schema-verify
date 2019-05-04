@@ -19,7 +19,7 @@ def runtime_exit_print():
     print("RUNTIME_ERROR")
 
 self = os.getcwd()
-home = "/.folder"
+home = "/app/static"
 root = self + home
 logs = root + "/.log.txt"
 

@@ -7,7 +7,7 @@ except ImportError:
 
 
 tasks = dict()
-own_dir = "/.tasks"
+own_dir = "/tasks"
 _name = "/.name.txt"
 tests_dir = "/tests"
 solve_dir = "/.solution.txt"
@@ -102,9 +102,13 @@ def get_test_output(task, num):
     path = own_dir + FW.make_path(task) + tests_dir + "/" + str(num) + ".ans"
     return "".join(FW.to_string(path))    
     
+def tests_num(task):
+    return len(FW.getdirs(own_dir + FW.make_path(task) + tests_dir)) // 2
+
 def tasks_list():
     return FW.getdirs(own_dir)
 
 def init():
     FW.create_folder(own_dir)
 
+print(get_test_input(0, 0))
