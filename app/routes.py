@@ -62,28 +62,7 @@ Only shooting stars break the mold
 It's a cool place and they say it gets colder
 You're bundled…
 
-'''
-
-
-
-def decode(x):
-    if type(x) != bytes:
-        return ""
-    encoding = [
-    'utf-8',
-    'windows-1251',
-    'cp500',
-    'utf-16',
-    'GBK',
-    'ASCII',
-    'US-ASCII',
-    'Big5'
-    ]    
-    for now in encoding:
-        try:
-            x.decode(now)
-            return x
-    
+''' 
 
 def init_session(username):
     session['username'] = username
@@ -321,7 +300,7 @@ def submit_solution(ContestId, TaskId):
     all_file = file.readlines()
     code = []
     for line in all_file:
-        code.append(line.decode("utf-8"))
+        code.append(line.decode("ASCII"))
         
     M.new_submit(username, TaskId, code)
     
