@@ -124,28 +124,25 @@ def new_task(user, task):
     
     return 0
 
-def new_submit(user, task, text):
+def new_submit(user, task, text, submit_type):
     new_task(user, task)
     user = get_id(user)
     path = own_dir + FW.make_path(user) + FW.make_path(get_id(task))
     path2 = res_dir + FW.make_path(user) + FW.make_path(get_id(task))
     num = new_num(user, task)
-    name = FW.make_path(str(num))
-    FW.create_folder(path2)
+    name = FW.make_path(str(num) + submit_type)
+    add_result(user, task, num)
     FW.create_file(path, name)
     FW.write_text(path, name, text)
 
 def add_result(user, task, submit):
     if not(id_in_DB(get_id(user))):
         return 1
-    path = res_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit)
+    path = res_dir + FW.make_path(user) + FW.make_path(task)
     if not(FW.folder_exists(path)):
         new_task(user, task)
     x = FW.getdirs(path)
-    if len(x) == 0:
-        now = 0
-    else:
-        now = max(map(int, x)) + 1
+    now = submit
     FW.create_file(path, FW.make_path(now))
 
 def write_verdict(user, task, ind, text):
@@ -174,3 +171,4 @@ def init():
     FW.create_folder(res_dir)
 
 #print(verdicts_list(0, 0))
+new_submit(0, 0, "", ".py")
