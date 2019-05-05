@@ -145,6 +145,8 @@ def translate_all(lines):
             cur = []
         elif to_letters(i):
             cur.append(i)
+    if not(ans):
+        raise TypeError
     return ans
 
 

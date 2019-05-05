@@ -9,7 +9,7 @@ def lexical_check(user, task, schema):
     try:
         res = TS.translate_all(schema)
         M.new_submit(user, task, res, ".py")
-        return "AFT" #Accepted For Testing
+        return "Testing in progress" #Accepted For Testing
     except:
         M.new_submit(user, task, "", ".py")
         return "CE"
