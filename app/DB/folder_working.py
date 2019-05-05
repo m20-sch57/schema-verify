@@ -1,4 +1,4 @@
-## -*- coding utf-8 -*-
+## -*- coding: utf-8 -*-
 
 import os
 import shutil
@@ -19,7 +19,7 @@ def runtime_exit_print():
     print("RUNTIME_ERROR")
 
 self = os.getcwd()
-home = "/app/static"
+home = "/app/static/folder"
 root = self + home
 logs = root + "/.log.txt"
 

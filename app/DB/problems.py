@@ -1,4 +1,4 @@
-## -*- coding utf-8 -*-
+## -*- coding: utf-8 -*-
 
 try:
     import folder_working as FW

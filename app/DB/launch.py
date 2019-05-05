@@ -1,3 +1,5 @@
+## -*- coding: utf-8 -*-
+
 import importlib.util
 
 def get_funcs(file):
@@ -11,7 +13,11 @@ def get_funcs(file):
 file = input()
 #funcs = module()
 funcs = get_funcs("./" + file)
-a = list(map(int, input().split()))
+a = []
+try:
+    a = list(map(int, input().split()))
+except:
+    a = []
 run = file + ".main(" + ', '.join(map(str, a)) + ")"
 res = funcs.main(*a)
 ans = []

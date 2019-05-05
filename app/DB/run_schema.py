@@ -1,12 +1,18 @@
+## -*- coding: utf-8 -*-
+
 import os
 import subprocess as SP
-import master as M
-import problems as P
 from subprocess import Popen as run
+try:
+    import master as M
+    import problems as P
+except ImportError:
+    from app.DB import master as M
+    from app.DB import problems as P
 
 
 def run_schema(userID, taskID, submitID, testID):
-    path = "app/static/submits" + "/" + str(userID) + "/" + str(taskID) + "/" + str(submitID)
+    path = "app/static/folder/submits" + "/" + str(userID) + "/" + str(taskID) + "/" + str(submitID) + ".py"
     #test = "app/static/.tasks" + "/" + str(taskID) + "/" + str(testID) + ".txt"
     ans = "verdict"
     inp = P.get_test_input(taskID, testID)
@@ -16,7 +22,7 @@ def run_schema(userID, taskID, submitID, testID):
         data = process.communicate(bytes(path + "\n" + inp, "utf-8"))
         process.kill()
         res = data[0].decode("utf-8")
-        if res == out:
+        if res.strip() == out:
             ans = "OK"
         else:
             ans = "WA"

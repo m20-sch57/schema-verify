@@ -1,4 +1,4 @@
-## -*- coding utf-8 -*-
+## -*- coding: utf-8 -*-
 
 import translate_schema as TS
 import master as M
@@ -23,5 +23,3 @@ def test_check(user, task, submit):
         if res[i] != "OK":
             return res[i] + str(i)
     return "OK"    
-
-print(test_check(0, 0, 0))

@@ -16,7 +16,7 @@ _name = "/.name.txt"
 def new_num(user, task):
     path = own_dir + FW.make_path(user) + FW.make_path(task)
     cnt = 0
-    mx = -1
+    mx = 0
     for i in FW.getdirs(path):
         x = i.split(".")
         now = int(x[0])
