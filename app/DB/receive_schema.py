@@ -7,11 +7,11 @@ import run_schema as RS
 
 def lexical_check(user, task, schema):
     try:
-        res = TS.get(schema)
-        M.new_submit(user, task, res)
+        res = TS.translate_all(schema)
+        M.new_submit(user, task, res, ".py")
         return "AFT" #Accepted For Testing
     except:
-        M.new_submit(user, task, "")
+        M.new_submit(user, task, "", ".py")
         return "CE"
     
 def test_check(user, task, submit):
@@ -23,3 +23,6 @@ def test_check(user, task, submit):
         if res[i] != "OK":
             return res[i] + str(i)
     return "OK"    
+
+
+#print(lexical_check(0, 0, ["scheme () main (out1)", "\tout1=1", "end"]))
