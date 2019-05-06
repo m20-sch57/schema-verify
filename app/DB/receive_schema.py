@@ -1,9 +1,14 @@
 ## -*- coding: utf-8 -*-
-
-import translate_schema as TS
-import master as M
-import problems as P
-import run_schema as RS
+try:
+    import translate_schema as TS
+    import master as M
+    import problems as P
+    import run_schema as RS
+except ImportError:
+    from app.DB import translate_schema as TS
+    from app.DB import master as M
+    from app.DB import problems as P
+    from app.DB import run_schema as RS    
 
 def lexical_check(user, task, schema):
     try:
