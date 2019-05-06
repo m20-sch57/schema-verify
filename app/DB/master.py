@@ -176,3 +176,4 @@ def init():
     FW.create_folder(res_dir)
 
 #print(verdicts_list(0, 0))
+#new_submit(0, 0, ["scheme (in1 in2 main (out1)\n", "\tin1 in2 and out1\n", "end\n"], ".txt")

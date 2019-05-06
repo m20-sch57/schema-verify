@@ -147,6 +147,8 @@ def translate_all(lines):
             cur.append(i)
     if not(ans):
         raise TypeError
+    for i in range(len(ans)):
+        ans[i] += "\n"
     return ans
 
 

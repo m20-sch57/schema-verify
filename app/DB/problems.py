@@ -110,5 +110,3 @@ def tasks_list():
 
 def init():
     FW.create_folder(own_dir)
-
-print(get_test_input(0, 0))

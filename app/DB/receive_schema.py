@@ -25,4 +25,4 @@ def test_check(user, task, submit):
     return "OK"    
 
 
-#print(lexical_check(0, 0, ["scheme () main (out1)", "\tout1=1", "end"]))
+#print(lexical_check(0, 0, ["scheme (in1 in2 main (out1)\n", "\t(in1 in2) and (out1)\n", "end\n"]))

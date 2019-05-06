@@ -32,4 +32,6 @@ def run_schema(userID, taskID, submitID, testID):
     #M.new_result(userID, taskID, submitID, testID)
     M.add_verdict(userID, taskID, submitID, ans)
     
+print(run_schema(0, 0, 1, 0))
+    
  

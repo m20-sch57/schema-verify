@@ -18,7 +18,7 @@ try:
     a = list(map(int, input().split()))
 except:
     a = []
-run = file + ".main(" + ', '.join(map(str, a)) + ")"
+#run = file + ".main(" + ', '.join(map(str, a)) + ")"
 res = funcs.main(*a)
 ans = []
 def add(lst):
