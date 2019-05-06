@@ -23,8 +23,8 @@ def get_pool():
     return pool
 
 def run_on_test(pool, prog, inputs, output):
-    func = pool.apply_async(prog.main, args = inputs)
     try:
+        func = pool.apply_async(prog.main, args = inputs)
         res = func.get(timeout = 0.5)
         ans = []
         def add(lst):
