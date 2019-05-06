@@ -47,7 +47,7 @@
 			</h3>	
 		{% endif %}
 		
-		<p><a href= {{ url_for('static', filename='tasks/task_' + ContestId|string + '_' + TaskId|string + '.txt') }} download>Скачать условие</a></p>
+		<p><a href = {{ url_for('static', filename='folder/tasks/' + TaskId|string + '/statements.txt') }} download>Скачать условие</a></p>
 		
 		{% if ('username' in session) %}
 		<!--
@@ -83,5 +83,25 @@
 				Чтобы сдать решение, необходимо <a href = '/enter'><button class="btn"> войти </button></a>
 			</p>
 		{% endif %}
+		{% for res in result %}
+			<p>
+			
+			{{res['time'] + " "}}
+			
+			{% if res['result'] == 'OK' %}
+			<text style = "color:green">
+				{{ res['result'] }}
+			</text>
+			{% else %}
+			<text style = "color:red">
+				{{ res['result'] }}
+			</text>
+			{% endif %}
+			
+			<a href = {{ url_for('static', filename='folder/submits/' + UserId|string + '/' + TaskId|string + '/' + res['SolutionNum']|string + '.txt') }} download> скачать решение </a>
+			
+			</p>
+		{% endfor %}
+		
     </div>
 {% endblock %}

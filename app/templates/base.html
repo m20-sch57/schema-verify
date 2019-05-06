@@ -8,7 +8,8 @@
 <body>
 	<div id="container">
         <div class="header">
-			<div style="text-align:center"><strong><a class="nameS">S</a><a class="nameCHEMA">CHEMA</a><a class="nameC">C</a><a class="nameODER">ODER</a></strong></div> 
+			<div style="text-align:center"><strong><a class="nameS">S</a><a class="nameCHEMA">CHEMA</a><a class="nameC">C</a><a class="nameODER">ODER*</a></strong></div> 
+			<div style="text-align:center">*minimal quality product</div> 
 			{% if ('username' in session) %}
 				<h3 class='header_menu'> 
 				{{ session['username'] }} | <a class='header_menu' href='/logout'>Выйти</a>
@@ -22,7 +23,7 @@
 				<a class='header_menu' href = "/home">Главная</a> |
 				<a class='header_menu' href = "/directory">Соревнования</a> |
 				<a class='header_menu' href = "/how_it_works">Помощь</a> | 
-				<a class='header_menu' href = "/about_us">О нас</a> |
+				<a class='header_menu' href = "/about_us">О нас</a> 
 			</div>
 	    </div>
 		{% block content %}{% endblock %}

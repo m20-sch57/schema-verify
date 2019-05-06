@@ -66,10 +66,10 @@ div.tasks_menu_inner {
 div.content {
 	/*background-color:#DEFFFF;*/
 	background-color:#FFFFFF;
-	width:50%;
-	margin:10px;
-	padding:20px;  
-	float: left;
+	width:800px;
+	margin:auto;
+	margin-top: 19px;
+	padding:20px;
 	left: 50%;
 	right: 50%;
 	/*style="background-color:#DEFFFF; width:60%; margin:7px; padding:5%; border:2px solid #ADDEEF; float:left;"*/

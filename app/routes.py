@@ -1,4 +1,5 @@
-## -*- coding: utf-8 -*-
+﻿## -*- coding: utf-8 -*-
+
 from app import app
 import os
 import sys
@@ -7,19 +8,23 @@ from flask import session
 from flask import redirect, render_template, flash
 from flask import send_file, url_for
 app.secret_key = 'random_combination_of_letters_numbers_and_symbols'
+from random import randint
+from time import strftime
 
 try:
     from app.forms import RegisterForm
     from app.forms import EnterForm
     from app.forms import SubmitForm
-    from app.DB import master as M
-    from app.DB import lessons as L
-    from app.DB import problems as P
+    from app.DB import master   as M 
+    from app.DB import lessons  as L  
+    from app.DB import problems as P 
+    from app.DB import receive_schema as RS
 except ImportError:
     import registerForm
-    import master as M    
-    import lessons as L
+    import master   as M
+    import lessons  as L
     import problems as P
+    import receive_schema as RS
 
 
 '''
@@ -40,33 +45,14 @@ except ImportError:
         ⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉
 
-Somebody once told me the world is gonna roll me
-I ain't the sharpest tool in the shed
-She was looking kind of dumb with her finger and her thumb
-In the shape of an "L" on her forehead
+'''
 
-Well the years start coming and they don't stop coming
-Fed to the rules and I hit the ground running
-Didn't make sense not to live for fun
-Your brain gets smart but your head gets dumb
-So much to do, so much to see
-So what's wrong with taking the back streets?
-You'll never know if you don't go
-You'll never shine if you don't glow
-
-Hey now, you're an all-star, get your game on, go play
-Hey now, you're a rock star, get the show on, get paid
-And all that glitters is gold
-Only shooting stars break the mold
-
-It's a cool place and they say it gets colder
-You're bundled…
-
-''' 
+res = dict()
+res = {0: {}, 1: {}, 2: {}}
 
 def init_session(username):
     session['username'] = username
-
+    
 
 @app.route('/')
 @app.route('/index')
@@ -101,11 +87,11 @@ reg_fall = False
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
     global register_error, list_of_register_error, reg_fall
-    if (not reg_fall):
+    if (not reg_fall):  
         register_error = 'ок'
     if (reg_fall):
         reg_fall = False
-    return render_template('Register.html', title='Register', form = RegisterForm(), session = session, register_error = register_error)
+    return render_template('register.html', title='Register', form = RegisterForm(), session = session, register_error = register_error)
 
 
 @app.route('/after_register_page', methods = ['POST', 'GET']) 
@@ -167,8 +153,8 @@ def after_register_page():
     if (username[0:5] == 'admin'):
         M.make_admin(username)
     init_session(username)
+    res[M.get_id(username)] = dict()
     return redirect('/index')
-
 
 
 @app.route('/logout')
@@ -182,36 +168,14 @@ def how_it_works():
     return render_template('how_it_works.html', title = 'How it works', session = session)
 
 
-@app.route('/contests')
-def contests():
-    lessons_list = list(map(L.get_name, L.lessons_list()))
-    lesson_id = dict()
-    for lesson in lessons_list:
-        lesson_id[lesson] = L.get_id_by_name(lesson)
-    return render_template('contests.html', title = 'Contests', session = session, lessons_list = lessons_list, lesson_id = lesson_id, admin = (('username' in session) and (M.is_admin(session['username'])) ))
-
-
 @app.route('/about_us')
 def about_us():
     return render_template('about_us.html', title = 'About us', session = session)
 
 
-@app.route('/submit/<SubId>')
-def test_submit(SubId):
-    form = SubmitForm()
-    
-    if form.validate_on_submit():
-        result = (form.image.data and form.image.data.read()) or form.image_url.data
-    else:
-        result = 'not submitted'   
-    return render_template('test_submit.html', title = 'Submit', session = session, form=form, result=result, SubId = SubId)
-    #return render_template('test_submit.html', title = 'Home', session = session)
-
-
-@app.route('/test_download')
-def test_download():
-    return send_file(request.args.get('path'), as_attachment = True)
-
+'''
+directory -> contest -> task
+'''
 
 @app.route('/directory')
 def directory():
@@ -248,7 +212,8 @@ def create_new_task(ContestId):
     #L.add_task(ContestId, P.add_task())
     return redirect('/contest/' + ContestId)
 
-@app.route('/task/<ContestId>/<TaskId>')
+
+@app.route('/task/<ContestId>/<TaskId>')    
 def task(ContestId, TaskId):
     tasks_list = list(map(P.get_name, L.tasks_list(ContestId)))
     tasks_id = dict()
@@ -259,7 +224,13 @@ def task(ContestId, TaskId):
     #print(statement)
     #print(type(statement))
     task_name = P.get_name(TaskId)
-    return render_template('task.html', title = 'Task', session = session, task_name = task_name, admin = (('username' in session) and (M.is_admin(session['username'])) ), TaskId = TaskId, form = form, statement = statement, ContestId = ContestId, tasks_list = tasks_list, tasks_id = tasks_id) 
+
+    UserId = M.get_id(session["username"])
+    result = []
+    if (TaskId in res[UserId]):
+        result = res[UserId][TaskId]
+    print(result)
+    return render_template('task.html', title = 'Task', session = session, task_name = task_name, admin = (('username' in session) and (M.is_admin(session['username'])) ), TaskId = TaskId, form = form, statement = statement, ContestId = ContestId, tasks_list = tasks_list, tasks_id = tasks_id, UserId = UserId, result = result) 
 
 '''
 @app.route('/contest/<ContestId>/<TaskId>')
@@ -285,12 +256,6 @@ def remove_task(ContestId, TaskId):
     L.remove_task(ContestId, TaskId)   
     return redirect('contest/' + ContestId)
 
-'''
-
-directory -> contest -> task
-
-'''
-
 @app.route('/submit_solution/<ContestId>/<TaskId>', methods=['POST'])
 def submit_solution(ContestId, TaskId):
     username = session['username']
@@ -302,8 +267,21 @@ def submit_solution(ContestId, TaskId):
     for line in all_file:
         code.append(line.decode("ASCII"))
         
-    M.new_submit(username, TaskId, code)
+    UserId = M.get_id(username)
+    if (not TaskId in res[UserId]):
+        res[UserId][TaskId] = list()
+    res[UserId][TaskId].insert(0, dict())    
+    res[UserId][TaskId][0]['time'] = strftime('%x %X')    
+    res[UserId][TaskId][0]['SolutionNum'] = len(res[UserId][TaskId]) - 1 
+
+    M.new_submit(username, int(TaskId), code, '.txt')
     
+    LexicalVerdict = RS.lexical_check(UserId, int(TaskId), code)
+    res[UserId][TaskId][0]['result'] = LexicalVerdict
+    
+    if (res[UserId][TaskId][0]['result'] != 'CE'):
+        print(RS.test_check(UserId, int(TaskId), code))
+        res[UserId][TaskId][0]['result'] = RS.test_check(UserId, int(TaskId), res[UserId][TaskId][0]['SolutionNum'])
+
     #file.save(os.getcwd() + "/.folder/.submits/" + str(M.get_id_by_name(username)) + "/" + TaskId + "/" + file.filename)
     return redirect('/task/' + ContestId + '/' + TaskId)
-
