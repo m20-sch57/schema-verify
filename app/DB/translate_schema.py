@@ -60,7 +60,7 @@ def translate_name(name):
     args = translate_args(args)
     out = translate_args(out)
     ans[0] = "def " + r_name + args + ":"
-    ans[1] = "return " + out
+    ans[1] = "return [" + out + "]"
     return ans
 
 def translate_var(line):
