@@ -49,7 +49,7 @@ def run(userID, taskID, submitID):
         return
     pool = get_pool()
     for i in range(P.tests_num(taskID)):
-        inputs = get_test_input(taskID, i)
-        output = get_test_output(taskID, i)
+        inputs = P.get_test_input(taskID, i)
+        output = P.get_test_output(taskID, i)
         res = run_on_test(pool, prog, inputs, output)
         M.add_verdict(userID, taskID, submitID, res)
