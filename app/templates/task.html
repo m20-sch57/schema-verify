@@ -83,25 +83,28 @@
 				Чтобы сдать решение, необходимо <a href = '/enter'><button class="btn"> войти </button></a>
 			</p>
 		{% endif %}
-		{% for res in result %}
-			<p>
-			
-			{{res['time'] + " "}}
-			
-			{% if res['result'] == 'OK' %}
-			<text style = "color:green">
-				{{ res['result'] }}
-			</text>
-			{% else %}
-			<text style = "color:red">
-				{{ res['result'] }}
-			</text>
-			{% endif %}
-			
-			<a href = {{ url_for('static', filename='folder/submits/' + UserId|string + '/' + TaskId|string + '/' + res['SolutionNum']|string + '.txt') }} download> скачать решение </a>
-			
-			</p>
-		{% endfor %}
+		
+		{% if ('username' in session) %}
+			{% for res in result %}
+				<p>
+				
+				{{res['time'] + " "}}
+				
+				{% if res['result'] == 'OK' %}
+				<text style = "color:green">
+					{{ res['result'] }}
+				</text>
+				{% else %}
+				<text style = "color:red">
+					{{ res['result'] }}
+				</text>
+				{% endif %}
+				
+				<a href = {{ url_for('static', filename='folder/submits/' + UserId|string + '/' + TaskId|string + '/' + res['SolutionNum']|string + '.txt') }} download> скачать решение </a>
+				
+				</p>
+			{% endfor %}
+		{% endif %}
 		
     </div>
 {% endblock %}

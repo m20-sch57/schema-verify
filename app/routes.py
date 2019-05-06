@@ -1,4 +1,4 @@
-﻿## -*- coding: utf-8 -*-
+## -*- coding: utf-8 -*-
 
 from app import app
 import os
@@ -224,12 +224,14 @@ def task(ContestId, TaskId):
     #print(statement)
     #print(type(statement))
     task_name = P.get_name(TaskId)
-
-    UserId = M.get_id(session["username"])
     result = []
-    if (TaskId in res[UserId]):
-        result = res[UserId][TaskId]
+    UserId = -1
+    if ('username' in session):
+        UserId = M.get_id(session["username"])
+        if (TaskId in res[UserId]):
+            result = res[UserId][TaskId]
     print(result)
+    
     return render_template('task.html', title = 'Task', session = session, task_name = task_name, admin = (('username' in session) and (M.is_admin(session['username'])) ), TaskId = TaskId, form = form, statement = statement, ContestId = ContestId, tasks_list = tasks_list, tasks_id = tasks_id, UserId = UserId, result = result) 
 
 '''
