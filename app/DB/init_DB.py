@@ -9,7 +9,7 @@ except ImportError:
     from app.DB import lessons as L
     from app.DB import problems as P
 
-FW.init()
+FW.reinit()
 M.init()
 L.init()
 P.init()

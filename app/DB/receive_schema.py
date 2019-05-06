@@ -5,11 +5,13 @@ try:
     import master as M
     import problems as P
     import run_schema as RS
+    import launch_schema as LS
 except ImportError:
     from app.DB import translate_schema as TS
     from app.DB import master as M
     from app.DB import problems as P
     from app.DB import run_schema as RS
+    from app.DB import launch_schema as LS
 
 def lexical_check(user, task, schema):
     try:
@@ -21,9 +23,7 @@ def lexical_check(user, task, schema):
         return "CE"
     
 def test_check(user, task, submit):
-    cnt = P.tests_num(task)
-    for i in range(cnt):
-        RS.run_schema(user, task, submit, i)
+    LS.run(user, task, submit)
     res = M.get_verdicts(user, task, submit)
     for i in range(len(res)):
         if res[i] != "OK":
