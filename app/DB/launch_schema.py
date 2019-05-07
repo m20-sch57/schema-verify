@@ -11,45 +11,70 @@ except ImportError:
     from app.DB import folder_working as FW
 
 def get_prog_module(userID, taskID, submitID):
+    global prog
     path = "." + FW.home + M.own_dir + FW.make_path(userID) + FW.make_path(taskID) + FW.make_path(submitID) + ".py"
-    name = str(userID) + "_" + str(submitID)
+    #path = "./1.py"
+    name = str(userID) + "_" + str(taskID) + "_" + str(submitID)
+    #name = "testname"
     spec = importlib.util.spec_from_file_location(name, path)
     prog = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(prog)
-    return prog
+    #return prog
     
 def get_pool():
     pool = MP.Pool(processes = 1)
     return pool
 
+def close_pool(pool):
+    #pool.join()
+    pool.close()
+
+prog = __import__("math")
+
+def main(*a):
+    return prog.main(*a)
+
 def run_on_test(pool, prog, inputs, output):
     try:
-        func = pool.apply_async(prog.main, args = inputs)
-        res = func.get(timeout = 0.5)
+        #main = prog.main
+        #print(main)
+        #print(main(1, 1))
+        #print(prog.main(*inputs))
+        #print(prog.__file__)
+        #print(inputs, type(inputs))
+        #prog = __import__("math")   
+        func = pool.apply_async(main, args = inputs)
+        #func = pool.map(prog.main, inputs)
+        res = func.get()
         ans = []
-        def add(lst):
-            global ans
+        def add(lst, ans):
+            #global ans
             for i in lst:
                 if (type(i) == int):
                     ans.append(i)
                 else:
-                    add(i) 
-        add(res)
+                    add(i, ans) 
+        add(res, ans)
         if ans == output:
-            return "OK\n"
-        return "WA\n"
+            return "OK"
+        return "WA"
     except Exception:
-        return "CE\n"
+        return "RE"
                   
 def run(userID, taskID, submitID):
     try:
-        prog = get_prog_module(userID, taskID, submitID)
+        get_prog_module(userID, taskID, submitID)
+        #prog = get_prog_module(userID, taskID, submitID)
     except:
         M.add_verdict(userID, taskID, submitID, "CE")
         return
     pool = get_pool()
     for i in range(P.tests_num(taskID)):
-        inputs = P.get_test_input(taskID, i)
-        output = P.get_test_output(taskID, i)
+        inputs = list(map(int, P.get_test_input(taskID, i).split()))
+        output = list(map(int, P.get_test_output(taskID, i).split()))
         res = run_on_test(pool, prog, inputs, output)
+        #print(res)
         M.add_verdict(userID, taskID, submitID, res)
+    close_pool(pool)
+
+#print(run(0, 0, 1))
