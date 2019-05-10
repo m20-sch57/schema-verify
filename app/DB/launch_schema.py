@@ -35,7 +35,7 @@ def main(a):
     return prog.main(*a)
 
 def run_on_test(pool, prog, inputs, output):
-    #try:
+    try:
         #print(prog.main(*inputs))
         func = pool.apply_async(main, args = (inputs, ))
         #func = pool.map(prog.main, inputs)
@@ -52,7 +52,7 @@ def run_on_test(pool, prog, inputs, output):
         if ans == output:
             return "OK"
         return "WA"
-    #except Exception:
+    except Exception:
         return "RE"
                   
 def run(userID, taskID, submitID):
