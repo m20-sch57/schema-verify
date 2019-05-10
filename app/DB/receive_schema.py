@@ -35,17 +35,19 @@ def lexical_check(user, task, submit):
         res = TS.translate_all(schema)
         M.new_submit(user, task, res, ".py")
         compile_module(user, task, submit)
+        M.add_verdict(userID, taskID, submitID, "Testing in progress")
         return "Testing in progress" #Accepted For Testing
     except Exception:
-        print(Exception)
+        #print(Exception)
         M.new_submit(user, task, "", ".py")
+        M.add_verdict(userID, taskID, submitID, "CE")
         return "CE"
     
 def test_check(user, task, submit):
     LS.run(user, task, submit)
     res = M.get_verdicts(user, task, submit)
     for i in range(len(res)):
-        if res[i] != "OK":
+        if res[i] == "CE" or res[i] == "RE" or res[i] == "WA":
             return res[i] + str(i)
     return "OK"    
 
