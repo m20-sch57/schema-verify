@@ -19,7 +19,7 @@ def get_prog_module(userID, taskID, submitID):
     spec = importlib.util.spec_from_file_location(name, path)
     prog = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(prog)
-    #return prog
+    return prog
     
 def get_pool():
     pool = MP.Pool(processes = 1)
@@ -29,9 +29,9 @@ def close_pool(pool):
     #pool.join()
     pool.close()
 
-prog = __import__("math")
+#prog = __import__("math")
 
-def main(*a):
+def main(prog, a):
     return prog.main(*a)
 
 def run_on_test(pool, prog, inputs, output):
@@ -43,7 +43,7 @@ def run_on_test(pool, prog, inputs, output):
         #print(prog.__file__)
         #print(inputs, type(inputs))
         #prog = __import__("math")   
-        func = pool.apply_async(main, args = inputs)
+        func = pool.apply_async(main, args = (prog, inputs))
         #func = pool.map(prog.main, inputs)
         res = func.get()
         ans = []
@@ -63,8 +63,8 @@ def run_on_test(pool, prog, inputs, output):
                   
 def run(userID, taskID, submitID):
     try:
-        get_prog_module(userID, taskID, submitID)
-        #prog = get_prog_module(userID, taskID, submitID)
+        #get_prog_module(userID, taskID, submitID)
+        prog = get_prog_module(userID, taskID, submitID)
     except:
         M.add_verdict(userID, taskID, submitID, "CE")
         return
