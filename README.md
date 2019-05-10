@@ -1,3 +1,7 @@
 # schema-verify
 Verification of Logical Schemas
-Igor
+
+## Required python libraries
+ - pathos (pathos.multiprocessing)
+ - Flask
+
