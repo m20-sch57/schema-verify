@@ -278,7 +278,7 @@ def submit_solution(ContestId, TaskId):
 
     M.new_submit(username, int(TaskId), code, '.txt')
     
-    LexicalVerdict = RS.lexical_check(UserId, int(TaskId), code)
+    LexicalVerdict = RS.lexical_check(UserId, int(TaskId), res[UserId][TaskId][0]['SolutionNum'])
     res[UserId][TaskId][0]['result'] = LexicalVerdict
     
     if (res[UserId][TaskId][0]['result'] != 'CE'):
