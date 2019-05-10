@@ -35,12 +35,12 @@ def lexical_check(user, task, submit):
         res = TS.translate_all(schema)
         M.new_submit(user, task, res, ".py")
         compile_module(user, task, submit)
-        M.add_verdict(userID, taskID, submitID, "Testing in progress")
+        M.add_verdict(user, task, submit, "Testing in progress")
         return "Testing in progress" #Accepted For Testing
     except Exception:
         #print(Exception)
         M.new_submit(user, task, "", ".py")
-        M.add_verdict(userID, taskID, submitID, "CE")
+        M.add_verdict(user, task, submit, "CE")
         return "CE"
     
 def test_check(user, task, submit):
