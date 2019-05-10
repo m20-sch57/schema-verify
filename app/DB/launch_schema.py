@@ -19,7 +19,7 @@ def get_prog_module(userID, taskID, submitID):
     spec = importlib.util.spec_from_file_location(name, path)
     prog = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(prog)
-    return prog
+    #return prog
     
 def get_pool():
     pool = MP.Pool(processes = 1)
