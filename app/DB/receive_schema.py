@@ -26,10 +26,7 @@ def test_check(user, task, submit):
         res = RS.run_schema(user, task, submit, i)
         M.add_verdict(user, task, submit, res)
     res = M.get_verdicts(user, task, submit)
-    for i in range(1, len(res)):
-        if res[i] != "OK":
-            return res[i] + str(i)
-    return "OK"    
+    return current_verdict(user, task, submit)
 
 def current_verdict(user, task, submit):
     res = M.get_verdicts(user, task, submit)
@@ -42,4 +39,4 @@ def current_verdict(user, task, submit):
             return res[i] + str(i)
 
 if __name__ == "__main__":
-    print(current_verdict(0, 0, 0))
+    print(test_check(0, 0, 0))
