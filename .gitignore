@@ -110,3 +110,5 @@ venv.bak/
 app/DB/app
 app/DB/1.py
 app/DB/.gitignore
+received.txt
+app/DB/folder
