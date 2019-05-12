@@ -23,12 +23,23 @@ def lexical_check(user, task, schema):
 def test_check(user, task, submit):
     cnt = P.tests_num(task)
     for i in range(cnt):
-        RS.run_schema(user, task, submit, i)
+        res = RS.run_schema(user, task, submit, i)
+        M.add_verdict(user, task, submit, res)
     res = M.get_verdicts(user, task, submit)
-    for i in range(len(res)):
+    for i in range(1, len(res)):
         if res[i] != "OK":
             return res[i] + str(i)
     return "OK"    
 
+def current_verdict(user, task, submit):
+    res = M.get_verdicts(user, task, submit)
+    if not(len(res)):
+        return "N/D"
+    if res[0] == "CE":
+        return "CE"
+    for i in range(1, len(res)):
+        if res[i] != "OK":
+            return res[i] + str(i)
 
-#print(lexical_check(0, 0, ["scheme (in1 in2 main (out1)\n", "\t(in1 in2) and (out1)\n", "end\n"]))
+if __name__ == "__main__":
+    print(current_verdict(0, 0, 0))

@@ -29,4 +29,4 @@ def add(lst):
         else:
             add(i)
 add(res)
-print(*ans)
+print(ans)
