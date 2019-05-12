@@ -106,3 +106,4 @@ venv.bak/
 /app/DB/.folder
 /app/DB/sample.py
 /app/DB/.folder/.log.txt
+/app/DB/app
