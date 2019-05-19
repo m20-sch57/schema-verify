@@ -62,3 +62,6 @@ def current_verdict(user, task, submit):
     for i in range(1, len(res)):
         if res[i] != "OK":
             return res[i] + str(i)
+        
+if __name__ == "__main__":
+    print(lexical_check(0, 0, 0))
