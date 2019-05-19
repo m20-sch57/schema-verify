@@ -53,7 +53,7 @@ def init_task(ind):
     FW.create_folder(own_dir + name + tests_dir)
     FW.create_file(own_dir + name, _name)
     FW.write_text(own_dir + name, _name, "untitled")
-    FW.create_file(own_dir + name, "/statements")
+    FW.create_file(own_dir + name, "/statements.txt")
 
 def add_task():
     x = FW.getdirs(own_dir)
