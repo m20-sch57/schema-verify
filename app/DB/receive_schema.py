@@ -47,7 +47,7 @@ def test_check(user, task, submit):
     cnt = P.tests_num(task)
     sup = M.get_verdicts(user, task, submit)
     if len(sup):
-        M.write_verdict(sup[0])
+        M.write_verdict(user, task, submit, sup[0])
     for i in range(cnt):
         res = RS.run_schema(user, task, submit, i)
         M.add_verdict(user, task, submit, res)
