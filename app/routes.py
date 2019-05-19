@@ -274,16 +274,17 @@ def submit_solution(ContestId, TaskId):
         res[UserId][TaskId] = list()
     res[UserId][TaskId].insert(0, dict())    
     res[UserId][TaskId][0]['time'] = strftime('%x %X')    
-    res[UserId][TaskId][0]['SolutionNum'] = len(res[UserId][TaskId]) - 1 
-
+    SolutionNum = len(res[UserId][TaskId]) - 1
+    res[UserId][TaskId][0]['SolutionNum'] = SolutionNum
+    
     M.new_submit(username, int(TaskId), code, '.txt')
     
-    LexicalVerdict = RS.lexical_check(UserId, int(TaskId), code)
+    LexicalVerdict = RS.lexical_check(UserId, int(TaskId), SolutionNum)
     res[UserId][TaskId][0]['result'] = LexicalVerdict
     
     if (res[UserId][TaskId][0]['result'] != 'CE'):
-        print(RS.test_check(UserId, int(TaskId), code))
-        res[UserId][TaskId][0]['result'] = RS.test_check(UserId, int(TaskId), res[UserId][TaskId][0]['SolutionNum'])
+        print(RS.test_check(UserId, int(TaskId), SolutionNum))
+        res[UserId][TaskId][0]['result'] = RS.test_check(UserId, int(TaskId), SolutionNum)
 
     #file.save(os.getcwd() + "/.folder/.submits/" + str(M.get_id_by_name(username)) + "/" + TaskId + "/" + file.filename)
     return redirect('/task/' + ContestId + '/' + TaskId)
