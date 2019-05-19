@@ -1,5 +1,7 @@
 ## -*- coding: utf-8 -*-
 
+import importlib.util
+
 try:
     import translate_schema as TS
     import master as M
@@ -11,13 +13,25 @@ except ImportError:
     from app.DB import problems as P
     from app.DB import run_schema as RS
 
-def lexical_check(user, task, schema):
+def compile_module(user, task, submit):
+    path = "." + FW.home + M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".py"
+    name = str(user) + '_' + str(task) + '_' + str(submit)
+    spec = importlib.util.spec_from_file_location(name, path)
+    prog = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(prog)
+    return prog
+
+def lexical_check(user, task, submit):
     try:
+        schema = FW.to_string(M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".txt")
         res = TS.translate_all(schema)
         M.new_submit(user, task, res, ".py")
+        compile_module(user, task, submit)
+        M.add_verdict(user, task, submit, "Testing in progress")
         return "Testing in progress" #Accepted For Testing
     except:
         M.new_submit(user, task, "", ".py")
+        M.add_verdict(user, task, submit, "CE")
         return "CE"
     
 def test_check(user, task, submit):
