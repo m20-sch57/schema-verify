@@ -86,3 +86,17 @@ div.content {
 	border: 1px solid #7FE6E1;
 }
 */
+
+div.code {
+	margin: 10px;
+	width: 400px;
+	padding: 10px;
+	background-color:#E3EFED;
+	border-bottom: 2px solid #B1C5C1;
+	border-right: 2px solid #B1C5C1;
+}
+
+a.tab {
+	
+	padding: 20px;
+}

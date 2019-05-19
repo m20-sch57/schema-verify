@@ -36,7 +36,7 @@ def main(a, prog):
     return prog.main(*a)
 
 def run_on_test(pool, prog, inputs, output):
-    try:
+    #try:
         #print(prog.main(*inputs))
         func = pool.apply_async(prog.main, args = inputs)
         #func = pool.map(prog.main, inputs)
@@ -53,7 +53,7 @@ def run_on_test(pool, prog, inputs, output):
         if ans == output:
             return "OK"
         return "WA"
-    except Exception:
+    #except Exception:
         return "RE"
                   
 def run(userID, taskID, submitID):
@@ -64,12 +64,18 @@ def run(userID, taskID, submitID):
         M.add_verdict(userID, taskID, submitID, "CE")
         return
     pool = get_pool()
-    for i in range(P.tests_num(taskID)):
-        inputs = list(map(int, P.get_test_input(taskID, i).split()))
-        output = list(map(int, P.get_test_output(taskID, i).split()))
-        res = run_on_test(pool, prog, inputs, output)
-        #print(res)
-        M.add_verdict(userID, taskID, submitID, res)
+    try:
+        for i in range(P.tests_num(taskID)):
+            inputs = list(map(int, P.get_test_input(taskID, i).split()))
+            output = list(map(int, P.get_test_output(taskID, i).split()))
+            res = run_on_test(pool, prog, inputs, output)
+            #print(res)
+            M.add_verdict(userID, taskID, submitID, res)
+    except ImportError:
+        close_pool(pool)
+        print("YES")
+    finally:
+        print("NO")
     close_pool(pool)
-
-#print(run(0, 0, 0))
+    
+#print(run(0, 0, 9))

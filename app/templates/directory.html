@@ -5,7 +5,7 @@
 	<div class="content">
 	{% for contest in contests_list %}
 		<p>
-		<a href = /{{ 'contest/' + contests_id[contest]|string }}> Контест {{ contest }} </a>
+		<a href = /{{ 'contest/' + contests_id[contest]|string }}> {{ contest }} </a>
 		</p>
 	{% endfor %}
 	{% if admin %}
