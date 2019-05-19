@@ -155,4 +155,4 @@ def translate_all(lines):
 def get(filename):
     fin = open(filename, "r")
     ans = translate_all(fin.readlines())
-return ans
+    return ans
