@@ -44,9 +44,21 @@ def lexical_check(user, task, submit):
         return "CE"
     
 def test_check(user, task, submit):
-    LS.run(user, task, submit)
+    cnt = P.tests_num(task)
+    sup = M.get_verdicts(user, task, submit)
+    if len(sup):
+        M.write_verdict(sup[0])
+    for i in range(cnt):
+        res = RS.run_schema(user, task, submit, i)
+        M.add_verdict(user, task, submit, res)
+    return current_verdict(user, task, submit)
+
+def current_verdict(user, task, submit):
     res = M.get_verdicts(user, task, submit)
-    for i in range(len(res)):
-        if res[i] == "CE" or res[i] == "RE" or res[i] == "WA":
+    if not(len(res)):
+        return "N/D"
+    if res[0] == "CE":
+        return "CE"
+    for i in range(1, len(res)):
+        if res[i] != "OK":
             return res[i] + str(i)
-    return "OK"    
