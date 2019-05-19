@@ -22,7 +22,7 @@ def get_id_by_name(task):
         cur = FW.read_str(own_dir + FW.make_path(ind) + _name)
         if cur == task:
             return int(ind)
-        return -1
+    return -1
     
 def add_solution(ind, text):
     path = own_dir + FW.make_path(ind)
