@@ -33,7 +33,7 @@ def translate_name(name):
     is_a = 0
     is_o = 0
     for i in name:
-        if i == "scheme":
+        if i == "scheme" or i == "schema":
             continue
         if i[0] == "(":
             if is_a == 2:

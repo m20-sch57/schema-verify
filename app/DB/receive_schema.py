@@ -35,13 +35,13 @@ def lexical_check(user, task, submit):
         res = TS.translate_all(schema)
         M.new_submit(user, task, res, ".py")
         compile_module(user, task, submit)
-        M.add_verdict(user, task, submit, "Testing in progress")
+        M.add_verdict(user, task, submit, "Testing in progress\n")
         return "Testing in progress" #Accepted For Testing
     except Exception:
         #print(Exception)
         if not(FW.file_exists(M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".py")):
             M.new_submit(user, task, "", ".py")
-        M.add_verdict(user, task, submit, "CE")
+        M.add_verdict(user, task, submit, "CE\n")
         return "CE"
     
 def test_check(user, task, submit):
@@ -67,3 +67,4 @@ def current_verdict(user, task, submit):
         
 if __name__ == "__main__":
     print(lexical_check(0, 0, 0))
+    print(test_check(0, 0, 0))
