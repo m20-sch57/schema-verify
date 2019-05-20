@@ -33,13 +33,14 @@ def lexical_check(user, task, submit):
         path = M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".txt"
         schema = FW.to_string(M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".txt")
         res = TS.translate_all(schema)
-        compile_module(user, task, submit)
         M.new_submit(user, task, res, ".py")
+        compile_module(user, task, submit)
         M.add_verdict(user, task, submit, "Testing in progress")
         return "Testing in progress" #Accepted For Testing
     except Exception:
         #print(Exception)
-        M.new_submit(user, task, "", ".py")
+        if not(FW.file_exists(M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".py")):
+            M.new_submit(user, task, "", ".py")
         M.add_verdict(user, task, submit, "CE")
         return "CE"
     
