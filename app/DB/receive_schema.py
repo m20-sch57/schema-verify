@@ -33,8 +33,8 @@ def lexical_check(user, task, submit):
         path = M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".txt"
         schema = FW.to_string(M.own_dir + FW.make_path(user) + FW.make_path(task) + FW.make_path(submit) + ".txt")
         res = TS.translate_all(schema)
-        M.new_submit(user, task, res, ".py")
         compile_module(user, task, submit)
+        M.new_submit(user, task, res, ".py")
         M.add_verdict(user, task, submit, "Testing in progress")
         return "Testing in progress" #Accepted For Testing
     except Exception:
