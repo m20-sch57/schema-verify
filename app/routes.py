@@ -283,8 +283,9 @@ def submit_solution(ContestId, TaskId):
     res[UserId][TaskId][0]['result'] = LexicalVerdict
     
     if (res[UserId][TaskId][0]['result'] != 'CE'):
-        print(RS.test_check(UserId, int(TaskId), SolutionNum))
+        #print(RS.test_check(UserId, int(TaskId), SolutionNum))
         res[UserId][TaskId][0]['result'] = RS.test_check(UserId, int(TaskId), SolutionNum)
+        print(res[UserId][TaskId][0]['result'])
 
     #file.save(os.getcwd() + "/.folder/.submits/" + str(M.get_id_by_name(username)) + "/" + TaskId + "/" + file.filename)
     return redirect('/task/' + ContestId + '/' + TaskId)
