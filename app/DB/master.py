@@ -19,7 +19,10 @@ def new_num(user, task):
     mx = 0
     for i in FW.getdirs(path):
         x = i.split(".")
-        now = int(x[0])
+        try:
+            now = int(x[0])
+        except:
+            now = -1
         if (now > mx):
             cnt = 1
             mx = now
